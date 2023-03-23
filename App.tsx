@@ -123,7 +123,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import LoginScreen from "./screens/Login";
 import Register from './screens/Register';
-
+import LandingPage from './screens/LandingPage';
 import AddProduct from './screens/AddProduct';
 import UserProducts from './screens/UserProducts';
 
@@ -137,6 +137,8 @@ export default function App() {
         <Stack.Screen name="Register" component={Register} options={{ title: 'Create Account' }} />
         <Stack.Screen name="AddProduct" component={AddProduct} options={{ title: 'Add Product' }} />
         <Stack.Screen name="MyProducts" component={UserProducts} options={{ title: 'My Products' }} />
+        <Stack.Screen name="LandingPage" component={LandingPage} options={{ title: 'Landing Page' }} />
+   
       </Stack.Navigator>
     </NavigationContainer>
   );
