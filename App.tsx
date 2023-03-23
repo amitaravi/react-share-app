@@ -126,7 +126,7 @@ import Register from './screens/Register';
 import LandingPage from './screens/LandingPage';
 import AddProduct from './screens/AddProduct';
 import UserProducts from './screens/UserProducts';
-
+import SearchResults from './screens/SearchResults';
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -138,6 +138,7 @@ export default function App() {
         <Stack.Screen name="AddProduct" component={AddProduct} options={{ title: 'Add Product' }} />
         <Stack.Screen name="MyProducts" component={UserProducts} options={{ title: 'My Products' }} />
         <Stack.Screen name="LandingPage" component={LandingPage} options={{ title: 'Landing Page' }} />
+    <Stack.Screen name="SearchResults" component={SearchResults} options={{ title: 'Search Results' }} />
    
       </Stack.Navigator>
     </NavigationContainer>
