@@ -1,7 +1,3 @@
-/**
- * @format
- */
-
 import {AppRegistry} from 'react-native';
 import App from './App';
 import {name as appName} from './app.json';
@@ -12,8 +8,31 @@ import {getAuth, GoogleAuthProvider} from 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/database';
 
+
+import { AppRegistry } from 'react-native';
+import { name as appName } from './app.json';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import firebase from 'firebase';
+import Home from './screens/Home';
+import Login from './screens/Login';
+import Register from './screens/Register';
+import AddProduct from './screens/AddProduct';
+import EditProduct from './screens/EditProduct';
+import UserProducts from './screens/UserProducts';
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+export const auth = getAuth(app);
+export const provider = new GoogleAuthProvider();
+
+
+
+
 const firebaseConfig = {
   apiKey: 'AIzaSyCrm7vNSnCyZ7_Ui13wCCagEoXy6J-OmO8',
   authDomain: 'ntushare-6e50d.firebaseapp.com',
@@ -24,10 +43,25 @@ const firebaseConfig = {
   measurementId: 'G-0D2DTGYSHT',
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-export const auth = getAuth(app);
-export const provider = new GoogleAuthProvider();
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
+
+const Stack = createStackNavigator();
+
+const App = () => {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={Login} />
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Register" component={Register} />
+        <Stack.Screen name="AddProduct" component={AddProduct} />
+        <Stack.Screen name="EditProduct" component={EditProduct} />
+        <Stack.Screen name="UserProducts" component={UserProducts} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
 
 AppRegistry.registerComponent(appName, () => App);
