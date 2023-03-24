@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { AntDesign } from '@expo/vector-icons';
+import { Button, Icon } from 'react-native-elements';
 import { Picker } from '@react-native-picker/picker';
 
 const LandingPage = () => {
@@ -56,7 +56,7 @@ const LandingPage = () => {
 
       <TouchableOpacity style={styles.collapseHeader}>
         <Text style={styles.collapseTitle}>My Products</Text>
-        <AntDesign name="down" size={24} color="black" />
+          <Icon name="plus" type="ionicon" size={24} color="black" />
       </TouchableOpacity>
 
       <View style={styles.collapseContent}>
