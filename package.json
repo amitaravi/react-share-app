@@ -20,6 +20,7 @@
     "react-dom": "^18.2.0",
      "react-native-web": "^0.18.12",
     "@expo/vector-icons": "^13.0.0",
+    "react-native-elements": "^3.4.3",
     "@react-native-picker/picker": "^2.4.9",
   },
   "devDependencies": {
