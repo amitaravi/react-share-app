@@ -8,7 +8,7 @@ export default function Register({ navigation }) {
 
   const onSignUp = async () => {
     try {
-      const userCredential = await Firebase.auth().createUserWithEmailAndPassword(email, password);
+      const userCredential = await firebase.auth().createUserWithEmailAndPassword(email, password);
       console.log('User account created successfully!', userCredential.user.uid);
       navigation.navigate('Login');
     } catch (error) {

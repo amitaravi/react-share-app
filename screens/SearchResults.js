@@ -4,7 +4,7 @@ import { View, Text, FlatList } from 'react-native';
 //import '@firebase/firestore';
 
 const SearchResults = ({ route }) => {
-  const { category, purchaseType } = route.params;
+  // const { category, purchaseType } = route.params;
   const [products, setProducts] = useState([]);
 
  /* useEffect(() => {
