@@ -11,11 +11,15 @@ const LoginScreen = ({ navigation }) => {
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then(() => {
-        navigation.navigate('Home');
+        navigation.navigate('LandingPage');
       })
       .catch(error => {
         console.log(error);
       });
+  };
+
+  const handleRegister = () => {
+    navigation.navigate('Register');
   };
 
   return (
@@ -37,6 +41,9 @@ const LoginScreen = ({ navigation }) => {
       />
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Text style={styles.buttonText}>Login</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.registerButton} onPress={handleRegister}>
+        <Text style={styles.buttonText}>Register</Text>
       </TouchableOpacity>
     </View>
   );
@@ -66,6 +73,13 @@ const styles = StyleSheet.create({
     backgroundColor: 'blue',
     borderRadius: 5,
     padding: 10,
+    marginTop: 10,
+  },
+  registerButton: {
+    backgroundColor: 'green',
+    borderRadius: 5,
+    padding: 10,
+    marginTop: 10,
   },
   buttonText: {
     color: '#fff',
