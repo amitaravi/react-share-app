@@ -3,7 +3,7 @@ import { View, Text, FlatList, Image, TouchableOpacity, Alert } from 'react-nati
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 
-const UserProductsScreen = ({ navigation }) => {
+const UserProducts = ({ navigation }) => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -76,4 +76,4 @@ const UserProductsScreen = ({ navigation }) => {
   );
 };
 
-export default UserProductsScreen;
+export default UserProducts;

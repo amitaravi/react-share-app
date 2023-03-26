@@ -3,7 +3,6 @@ import App from './App';
 import {name as appName} from './app.json';
 import firebase from 'firebase/app';
 import {initializeApp} from 'firebase/app';
-import {getAnalytics} from 'firebase/analytics';
 import {getAuth, GoogleAuthProvider} from 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/database';
@@ -43,25 +42,9 @@ const firebaseConfig = {
   measurementId: 'G-0D2DTGYSHT',
 };
 
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
-}
-
-const Stack = createStackNavigator();
-
-const App = () => {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={Login} />
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Register" component={Register} />
-        <Stack.Screen name="AddProduct" component={AddProduct} />
-        <Stack.Screen name="EditProduct" component={EditProduct} />
-        <Stack.Screen name="UserProducts" component={UserProducts} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
-};
-
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+export const auth = getAuth(app);
+export const provider = new GoogleAuthProvider();
+export default app;
 AppRegistry.registerComponent(appName, () => App);

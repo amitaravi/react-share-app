@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, Button, Image, TextInput, Picker } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
-import FirebaseService from '../services/FirebaseService';
+//import FirebaseService from '../FirebaseService';
+// import{Picker} from '@react-native-picker/picker'
 
 const AddProduct = () => {
   const [productName, setProductName] = useState('');
@@ -44,7 +45,7 @@ if (productId) {
 } else {
   console.log('Product add failed');
 }
-    
+
   };
 
   return (

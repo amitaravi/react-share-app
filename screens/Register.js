@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import Firebase from '../config/firebase';
+import {createUserWithEmailAndPassword, getAuth} from 'firebase/auth';
 
 export default function Register({ navigation }) {
   const [email, setEmail] = useState('');
@@ -8,10 +8,16 @@ export default function Register({ navigation }) {
 
   const onSignUp = async () => {
     try {
-      const userCredential = await Firebase.auth().createUserWithEmailAndPassword(email, password);
+      const userCredential = await createUserWithEmailAndPassword(getAuth(), email, password);
       console.log('User account created successfully!', userCredential.user.uid);
       navigation.navigate('Login');
     } catch (error) {
+      if (error.code === 'auth/email-already-in-use'){
+        console.log('That email is already in use!');
+      }
+      if (error.code === 'auth/invalid-email'){
+        console.log('That email address is invalid!');
+      }
       console.error(error);
     }
   };
