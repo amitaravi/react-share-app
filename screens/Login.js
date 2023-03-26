@@ -1,17 +1,15 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import firebase from 'firebase/app';
+import {signInWithEmailAndPassword, getAuth} from 'firebase/auth';
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password)
+    signInWithEmailAndPassword(getAuth(), email, password)
       .then(() => {
-        navigation.navigate('LandingPage');
+        navigation.navigate('SearchProducts');
       })
       .catch(error => {
         console.log(error);
