@@ -73,8 +73,8 @@ const SearchProducts = ({navigation}) => {
     <View
       style={{flex: 1, paddingHorizontal: 20, backgroundColor: COLORS.white}}>
        <View style={style.header}>
-          <Text style={{fontSize: 38, color: COLORS.green, fontWeight: 'bold'}}>
-            Products
+          <Text style={{fontSize: 30, color: COLORS.purple, fontWeight: 'bold'}}>
+            Here you go!
           </Text>
           <TouchableOpacity onPress={() => navigation.navigate('Favorites')}>
            <View

@@ -9,7 +9,7 @@ const LoginScreen = ({ navigation }) => {
   const handleLogin = () => {
     signInWithEmailAndPassword(getAuth(), email, password)
       .then(() => {
-        navigation.navigate('SearchProducts');
+        navigation.navigate('HomePage');
       })
       .catch(error => {
         console.log(error);
@@ -17,7 +17,7 @@ const LoginScreen = ({ navigation }) => {
   };
 
   const handleRegister = () => {
-    navigation.navigate('Register');
+    navigation.navigate('HomePage');
   };
 
   return (

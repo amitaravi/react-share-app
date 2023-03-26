@@ -1,136 +1,141 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { Button, Icon } from 'react-native-elements';
-import { Picker } from '@react-native-picker/picker';
+import { TouchableOpacity, Text, View ,LayoutAnimation, UIManager, Platform, StatusBar } from 'react-native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { StyleSheet} from 'react-native';
+import { SelectList } from 'react-native-dropdown-select-list';
+import 'react-native-gesture-handler';
+import { enableScreens } from 'react-native-screens';
+enableScreens();
 
-const LandingPage = () => {
-  const navigation = useNavigation();
-  const [category, setCategory] = useState('electronics');
-  const [purchaseType, setPurchaseType] = useState('rent');
 
-  const handleSearch = () => {
-    navigation.navigate('SearchResults', { category, purchaseType });
+const LandingPage = ({ navigation }) => {
+  const [expanded, setExpanded] = useState(false);
+
+  const toggleExpansion = () => {
+    setExpanded(!expanded);
   };
 
+  const handleFavouritesPress = () => {
+    navigation.navigate('Cart');
+    setExpanded(false);
+  };
+ 
+  const[selected, setSelected] = React.useState("");
+
+  const cat_data = [
+    {Key: '1', value: 'Electronics' },
+    {Key: '2', value: 'Health' },
+    {Key: '3', value: 'Beauty and Wellness' },
+    {Key: '4', value: 'Hall Essentials' },
+  ]
+
+  const type_data = [
+    {Key: '1', value: 'Buy' },
+    {Key: '2', value: 'Rent' },
+  ]
+
+  
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Product Search</Text>
-        <TouchableOpacity onPress={() => navigation.navigate('AddProduct')}>
-          <AntDesign name="plus" size={24} color="black" />
-        </TouchableOpacity>
-      </View>
-
-      <View style={styles.dropdowns}>
-        <View style={styles.dropdownContainer}>
-          <Text style={styles.dropdownLabel}>Category:</Text>
-          <Picker
-            selectedValue={category}
-            onValueChange={(value) => setCategory(value)}
-            style={styles.dropdown}
-          >
-            <Picker.Item label="Electronics" value="electronics" />
-            <Picker.Item label="Clothing" value="clothing" />
-            <Picker.Item label="Home and Garden" value="home-and-garden" />
-            <Picker.Item label="Beauty and Personal Care" value="beauty-and-personal-care" />
-          </Picker>
+    <View style={styles.gradient}>
+      <View style={styles.container}>
+        <View>
+          <Text style={[styles.title, { textAlign: 'center' }]}>Looking for?</Text>
         </View>
-
-        <View style={styles.dropdownContainer}>
-          <Text style={styles.dropdownLabel}>Purchase Type:</Text>
-          <Picker
-            selectedValue={purchaseType}
-            onValueChange={(value) => setPurchaseType(value)}
-            style={styles.dropdown}
-          >
-            <Picker.Item label="Rent" value="rent" />
-            <Picker.Item label="Sell" value="sell" />
-          </Picker>
+        <Text style={styles.dropdownLabel}>Category:</Text>
+        <SelectList setSelected={setSelected} data={cat_data} />
+        <Text style={styles.dropdownLabel}>Purchase Type:</Text>
+        <SelectList setSelected={setSelected} data={type_data} />
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity style={styles.searchButton} onPress={()=>{navigation.navigate('SearchProducts')}}>
+            <Text style={styles.searchButtonText}>Search</Text>
+          </TouchableOpacity>
         </View>
-      </View>
-
-      <TouchableOpacity style={styles.searchButton} onPress={handleSearch}>
-        <Text style={styles.searchButtonText}>Search</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.collapseHeader}>
-        <Text style={styles.collapseTitle}>My Products</Text>
-          <Icon name="plus" type="ionicon" size={24} color="black" />
-      </TouchableOpacity>
-
-      <View style={styles.collapseContent}>
-        <TouchableOpacity onPress={() => navigation.navigate('UserProducts')}>
-          <Text style={styles.collapsibleText}>View My Products</Text>
-        </TouchableOpacity>
       </View>
     </View>
   );
-};
+}
+
 const styles = StyleSheet.create({
-  container: {
+  menu: {
+    backgroundColor: 'white',
+    height: '100%',
+    width: '70%',
+    paddingTop:  20,
+    paddingLeft: 20,
+    alignItems: 'flex-start',
+  },
+  menuItem: {
+    paddingVertical: 10,
+  },
+  menuItemText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+ container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
+   
+  
     justifyContent: 'center',
   },
-  logoContainer: {
-    marginBottom: 50,
-  },
-  logo: {
-    width: 200,
-    height: 200,
-  },
-  inputContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    gradient: {
+    flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    marginBottom: 10,
+    backgroundColor: '#bca0dc',
+  },
+  
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    alignItems:'center'
+  },
+  dropdowns: {
+   
+    flexDirection: 'column', // modified flexDirection value
+    width: '100%',
+    alignItems: 'center'
+  },
+  dropdownContainer: {
     borderWidth: 1,
-    borderRadius: 5,
-    borderColor: '#ccc',
-    width: '80%',
+    borderRadius: 10,
+  
+    width: '60%',
+    height: 40,
+ 
+    marginBottom: 30,
+  },
+    buttonContainer: {
+    marginTop: 20,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginLeft: 70,
+marginRight: 70
+  },
+   
+  dropdownLabel: {
+    fontWeight: 'bold',
+    marginTop:10,
+    marginBottom: 5,
+     textAlign: 'center'
+  },
+  
+  dropdown: {
+    flex: 1,
   },
   searchButton: {
-    backgroundColor: '#1c8eff',
+    backgroundColor: 'white',
     paddingHorizontal: 20,
     paddingVertical: 10,
     borderRadius: 5,
     marginTop: 10,
+    width: '80%',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   searchButtonText: {
-    color: '#fff',
+    color: 'black',
     fontWeight: 'bold',
-  },
-  collapsibleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderWidth: 1,
-    borderRadius: 5,
-    borderColor: '#ccc',
-    width: '80%',
-  },
-  collapsibleIcon: {
-    marginRight: 10,
-  },
-  collapsibleText: {
-    fontWeight: 'bold',
-    fontSize: 16,
-  },
-  dropdownContainer: {
-    borderWidth: 1,
-    borderRadius: 5,
-    borderColor: '#ccc',
-    width: '45%',
-    height: 50,
-    paddingHorizontal: 10,
-    marginBottom: 10,
-  },
+  }
 });
 
 export default LandingPage;

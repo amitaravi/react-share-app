@@ -3,6 +3,7 @@ import {View, SafeAreaView, Image, Text, StyleSheet} from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import COLORS from '../src/consts/colors';
 
+
 const ProductDescription = ({navigation, route}) => {
   const plant = route.params;
 
@@ -115,14 +116,14 @@ const style = StyleSheet.create({
   buyBtn: {
     width: 200,
     height: 50,
-    backgroundColor: COLORS.green,
+    backgroundColor: COLORS.purple,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 30,
     padding: 5
   },
   priceTag: {
-    backgroundColor: COLORS.green,
+    backgroundColor: COLORS.purple,
     width: 80,
     height: 40,
     justifyContent: 'center',

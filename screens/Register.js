@@ -10,7 +10,7 @@ export default function Register({ navigation }) {
     try {
       const userCredential = await createUserWithEmailAndPassword(getAuth(), email, password);
       console.log('User account created successfully!', userCredential.user.uid);
-      navigation.navigate('Login');
+      navigation.navigate('HomePage');
     } catch (error) {
       if (error.code === 'auth/email-already-in-use'){
         console.log('That email is already in use!');
