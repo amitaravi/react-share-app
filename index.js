@@ -3,7 +3,7 @@ import App from './App';
 import {name as appName} from './app.json';
 import {initializeApp} from 'firebase/app';
 import {getAuth} from 'firebase/auth';
-import 'firebase/firestore';
+import { getFirestore, initializeFirestore } from 'firebase/firestore';
 import 'firebase/database';
 
 // Your web app's Firebase configuration
@@ -23,6 +23,12 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
-export default app;
+const auth = getAuth(app);
+const db = initializeFirestore(app, {
+  experimentalForceLongPolling: true
+});
+
+export{db, auth}; 
+
 AppRegistry.registerComponent(appName, () => App);
+

@@ -2,9 +2,10 @@ import React, { useCallback, useState } from 'react';
 import { View, Text, Button, Image, TextInput, TouchableOpacity, StyleSheet, ScrollView, SafeAreaView, StatusBar } from 'react-native';
 import * as ImagePicker from 'react-native-image-picker';
 import { Picker } from '@react-native-picker/picker';
+import {collection, addDoc, serverTimestamp } from 'firebase/firestore';
+// import { getAuth } from 'firebase/auth';
+import { db, auth } from '../index';
 
-
-//import FirebaseService from '../FirebaseService';
 
 const AddProduct = () => {
   const [productName, setProductName] = useState('');
@@ -15,20 +16,20 @@ const AddProduct = () => {
   const [productImage, setProductImage] = useState(null);
   const[pickerResponse, setPickerResponse] = useState(null);
 
-  const handleChooseImage = () => {
-    const options = {
-      title: 'Select Product Image',
-      storageOptions: {
-        skipBackup: true,
-        path: 'images',
-      },
-    };
-    ImagePicker.showImagePicker(options, (response) => {
-      if (response.uri) {
-        setProductImage(response);
-      }
-    });
-  };
+  // const handleChooseImage = () => {
+  //   const options = {
+  //     title: 'Select Product Image',
+  //     storageOptions: {
+  //       skipBackup: true,
+  //       path: 'images',
+  //     },
+  //   };
+  //   ImagePicker.showImagePicker(options, (response) => {
+  //     if (response.uri) {
+  //       setProductImage(response);
+  //     }
+  //   });
+  // };
 
   const onImageLibraryPress = useCallback(() => {
     const options = {
@@ -39,6 +40,28 @@ const AddProduct = () => {
     ImagePicker.launchImageLibrary(options, setPickerResponse);
   }, []);
 
+  const addProduct = async (product, user) => {
+    // const db = getFirestore(app);
+    // const productsCollectionRef = ;
+  
+    try {
+      const docRef = await addDoc(collection(db, "products"), {
+        name: product.name,
+        price: product.price,
+        description: product.description,
+        category: product.category,
+        purchaseType: product.purchaseType,
+        // imageUri: product.imageUri,
+        createdBy: user.uid,
+        createdAt: serverTimestamp(),
+      });
+      console.log(`Product added with ID: ${docRef.id}`);
+    } catch (error) {
+      console.error('Error adding product:', error);
+
+    }
+  };
+
   const handleAddProduct = () => {
     const product = {
       name: productName,
@@ -46,16 +69,12 @@ const AddProduct = () => {
       description:productDescription,
       category: productCategory,
       purchaseType:  productPurchaseType,
-      imageUri:productImage.uri,
+      // imageUri: pickerResponse.assets[0].uri,
     };
-    const user = firebase.auth().currentUser;
-
-const productId =FirebaseService.addProduct(product, user);
-if (productId) {
-  console.log(`Product added with ID: ${productId}`);
-} else {
-  console.log('Product add failed');
-}
+    console.log(product);
+    const user = auth.currentUser;
+    console.log(user.uid);
+    addProduct(product, user);
 
   };
 
@@ -69,7 +88,7 @@ if (productId) {
      
         <Text style={styles.titlee}>Product Name</Text>
       <TextInput style={styles.input} placeholder="" value={productName} onChangeText={setProductName} />
-      <Text style={styles.titlee}>Choose Image</Text>
+      {/* <Text style={styles.titlee}>Choose Image</Text>
       <View style={{alignItems:'center'}}>
       <Image
            style={styles.avatarImage}
@@ -78,7 +97,7 @@ if (productId) {
          <TouchableOpacity style={styles.addButton} onPress={onImageLibraryPress}>
             <Image style={styles.addButtonIcon} source={require('../src/assets/addIcon.png')} />
          </TouchableOpacity>
-      </View>
+      </View> */}
         
           {/* <View style={styles.buttonContainer}>
              <Button title="Choose Image" onPress={handleChooseImage} />
