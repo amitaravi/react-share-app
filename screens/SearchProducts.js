@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -11,33 +11,74 @@ import { TouchableOpacity} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/AntDesign';
 import COLORS from '../src/consts/colors';
 import plants from '../src/consts/plants';
+import { getFirestore, collection, query, where, getDocs } from 'firebase/firestore'; 
+
+
 
 const height = Dimensions.get('window').height/1.5;
 const width = Dimensions.get('window').width/1.1
 
-const SearchProducts = ({navigation}) => {
+// const searchDocuments = async (cat, type) => {
+//   console.log("hello");
+//   const db = getFirestore();
+//   let q = collection(db, 'products');
+//   if (cat) {
+//     q = query(q, where('category', '==', cat));
+//   }
+//   if (type) {
+//     q = query(q, where('purchaseType', '==', type));
+//   }
+//   const querySnapshot = await getDocs(q);
+//   const results = [];
+//   querySnapshot.forEach((doc) => {
+//     results.push({ id: doc.id, ...doc.data() });
+//   });
+//   return results;
+// };
+
+
+const SearchProducts = ({route,navigation}) => {
  
- const Card = ({plant}) => {
+ const{cat, type} = route.params;
+ console.log(cat);
+ console.log(type);
+ const[products, setProducts] = useState([]);
+ const db = getFirestore();
+  let q = collection(db, 'products');
+  const results = [];
+
+ useEffect(() => {
+   if (cat) {
+    q = query(q, where('category', '==', cat));
+  }
+  if (type) {
+    q = query(q, where('purchaseType', '==', type));
+  }
+ getDocs(q).then((querySnapshot) => {
+  querySnapshot.forEach((doc) => {
+    results.push({ id: doc.id, ...doc.data() });
+  });
+  // setProducts(results);
+  console.log(results);
+ }).catch((error) => {console.log("Error getting products:",error);
+
+});
+ 
+}, []);
+
+ const Card = ({product}) => {
     return (
       <TouchableOpacity
         activeOpacity={0.8}
-        onPress={() => navigation.navigate('ProductDescription', plant)}>
+        onPress={() => navigation.navigate('ProductDescription', product)}>
         <View style={style.card}>
           <View style={{alignItems: 'flex-end'}}>
-             {
-                plant.like ?  <Icon
+              <Icon
                 name="hearto"
                 size={18}
                 color={COLORS.black}
-              /> :
-              <Icon
-              name="heart"
-              size={18}
-              color={COLORS.red}
-            />
-
-             }
-          </View>
+              /> 
+           </View>
 
           <View
             style={{
@@ -45,7 +86,7 @@ const SearchProducts = ({navigation}) => {
               alignItems: 'center',
             }}>
             <Image
-              source={plant.img}
+              source={product.imageUri}
               style={{flex: 1, resizeMode: 'contain'}}
             />
           </View>
@@ -56,10 +97,10 @@ const SearchProducts = ({navigation}) => {
             marginTop: 5,
           }}>
           <Text style={{fontWeight: 'bold', fontSize: 17, marginTop: 10}}>
-            {plant.name}
+            {product.name}
           </Text>
           <Text style={{fontSize: 19, fontWeight: 'bold'}}>
-              ${plant.price}
+              ${product.price}
             </Text>
          
            
@@ -94,7 +135,9 @@ const SearchProducts = ({navigation}) => {
             </View>
       </TouchableOpacity>
       </View>
-      <FlatList 
+      <View>
+        {products.length != 0 &&
+         <FlatList 
          horizontal
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
@@ -104,11 +147,13 @@ const SearchProducts = ({navigation}) => {
           alignItems: 'center'
         }}
         numColumns={1}
-        data={plants}
+        data={results}
         renderItem={({item}) => {
           return <Card plant={item} />;
         }}
-      />
+      /> 
+        }
+      </View>
     </View>
   );
 };

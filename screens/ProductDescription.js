@@ -14,7 +14,11 @@ const ProductDescription = ({navigation, route}) => {
         backgroundColor: COLORS.white,
       }}>
       <View style={style.imageContainer}>
-        <Image source={plant.img} style={{resizeMode: 'contain', flex: 1}} />
+        {
+          plant.imageUri && (
+            <Image source={{ uri: plant.imageUri }} style={{width: 250, height: 250}} />
+          )
+        }
       </View>
       <View style={style.detailsContainer}>
         <View
@@ -54,7 +58,7 @@ const ProductDescription = ({navigation, route}) => {
               lineHeight: 22,
               marginTop: 10,
             }}>
-            {plant.about}
+            {plant.description}
           </Text>
           <View
             style={{
