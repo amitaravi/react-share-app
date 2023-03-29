@@ -36,7 +36,7 @@ function HomeStack(){
             </DrawerContentScrollView>
         )
       }}>
-        <Drawer.Screen name="LandingPage" component={SearchPage}  options={{ title: 'Home' }}/>
+        <Drawer.Screen name="LandingPage" component={LandingPage}  options={{ title: 'Home' }}/>
         <Drawer.Screen name="AddProduct" component={AddProduct} options={{ title: 'Add Products' }} />
         <Drawer.Screen name="MyProducts" component={UserProducts} options={{ title: 'Edit Products' }} />
         <Drawer.Screen name="Favorites" component={Favorites} options={{ title: 'Favorites' }} />

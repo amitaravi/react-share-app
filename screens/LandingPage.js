@@ -12,41 +12,12 @@ import { getFirestore, collection, query, where, getDocs } from 'firebase/firest
 
 enableScreens();
 
-const height = Dimensions.get('window').height/1.5;
-const width = Dimensions.get('window').width/1.1
-
-const searchDocuments = async (cselected, tselected) => {
-  const db = getFirestore();
-  let q = collection(db, 'products');
-  if (cselected) {
-    q = query(q, where('category', '==', cselected));
-  }
-  if (tselected) {
-    q = query(q, where('purchaseType', '==', tselected));
-  }
-  const querySnapshot = await getDocs(q);
-  const results = [];
-  querySnapshot.forEach((doc) => {
-    results.push({ id: doc.id, ...doc.data() });
-  });
-  return results;
-};
-
 const LandingPage = ({ navigation }) => {
 
   const[cselected, setcSelected] = useState("");
   const[tselected, settSelected] = useState("");
   const [expanded, setExpanded] = useState(false);
-  const [searchResults, setSearchResults] = useState([]);
 
-  const handleSearch = async () => {
-    const results = await searchDocuments(cselected, tselected);
-    setSearchResults(results);
-    console.log(results);
-  };
-
-
- 
    const toggleExpansion = () => {
     setExpanded(!expanded);
   };
@@ -140,20 +111,20 @@ const LandingPage = ({ navigation }) => {
           <Picker.Item label="Select a Purchase Type" value="" />
           <Picker.Item label="Rent" value="rent" />
            <Picker.Item label="Buy" value="buy" />
+           <Picker.Item label="Give" value="give" />
         </Picker>
           
         </View>
         <View style={{alignItems: 'center'}}>
-          <TouchableOpacity style={styles.buttonContainer} onPress={handleSearch}>
+          <TouchableOpacity style={styles.buttonContainer} onPress={()=>{
+                navigation.navigate('SearchProducts',{
+                  category: cselected,
+                  type: tselected
+                })
+          }}>
             <Text style={{fontSize: 20, color: '#fff', fontWeight: '500'}}>Search</Text>
           </TouchableOpacity>
         </View>
-        <FlatList
-        data={searchResults}
-        keyExtractor={(item) => item.id}
-        renderItem={Card}
-        contentContainerStyle={{ flexGrow: 1 }}
-      />
       </View>
     </View>
   );
@@ -231,16 +202,6 @@ const styles = StyleSheet.create({
   
   dropdown: {
     flex: 1,
-  },
-  card: {
-    height,
-    backgroundColor: COLORS.light,
-    width,
-    marginHorizontal: 2,
-    borderRadius: 10,
-    marginBottom: 20,
-    padding: 15,
-    justifyContent: 'space-between'
   },
 });
 

@@ -6,7 +6,6 @@ import COLORS from '../src/consts/colors';
 
 const ProductDescription = ({navigation, route}) => {
   const plant = route.params;
-
   return (
     <SafeAreaView
       style={{
@@ -14,11 +13,13 @@ const ProductDescription = ({navigation, route}) => {
         backgroundColor: COLORS.white,
       }}>
       <View style={style.imageContainer}>
-        {
-          plant.imageUri && (
-            <Image source={{ uri: plant.imageUri }} style={{width: 250, height: 250}} />
-          )
-        }
+          {
+            plant.imageUri && (
+              <Image source={{ uri: plant.imageUri }} style={{resizeMode: 'contain', flex: 1, width: '100%', height: '100%'}} />
+
+            )
+          }
+
       </View>
       <View style={style.detailsContainer}>
         <View

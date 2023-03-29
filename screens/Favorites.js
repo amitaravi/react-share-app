@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   SafeAreaView,
@@ -12,17 +12,76 @@ import {TextInput, TouchableOpacity} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import COLORS from '../src/consts/colors';
 import plants from '../src/consts/plants';
+import {auth, db} from '../index';
+import {  arrayRemove, doc, getDocs, collection, updateDoc } from "firebase/firestore";
+import { useIsFocused } from '@react-navigation/native';
+
 const width = Dimensions.get('window').width / 2 - 30;
 
 const Favorites = ({navigation}) => {
+  const isFocused = useIsFocused();
+  const [products, setProducts] = useState([]);
+  
+  useEffect(() => {
+    // Fetch products from Firebase Firestore
+    if(isFocused){
+      getDocs(collection(db, 'users'))
+      .then(snapshot => {
+        // const productsArray = [];
+        snapshot.forEach(doc => {
+          const product = doc.data();
+          product.id = doc.id;
+          if(product.id == auth.currentUser.uid){
+            console.log(product.favorites);
+            setProducts(product.favorites);
+           }
+        });
+        // setProducts(productsArray);
+      })
+      .catch(error => console.log(error));
+
+    }
+  }, [isFocused]);
+
+  const removeFavorite = (product) => {
+    const user = auth.currentUser;
+    const userRef = doc(db, "users", user.uid);
+    updateDoc(userRef, {
+      favorites: arrayRemove(product)
+    })
+      .then(() => {
+        console.log('Product removed from favorites!');
+      })
+      .catch((error) => {
+        console.error('Error removing product from favorites: ', error);
+      });
+
+      getDocs(collection(db, 'users'))
+      .then(snapshot => {
+        // const productsArray = [];
+        snapshot.forEach(doc => {
+          const product = doc.data();
+          product.id = doc.id;
+          if(product.id == auth.currentUser.uid){
+            console.log(product.favorites);
+            setProducts(product.favorites);
+           }
+        });
+        // setProducts(productsArray);
+      })
+      .catch(error => console.log(error));
+      
+  };
+
   const Card = ({plant}) => {
+
     return (
       <TouchableOpacity
         activeOpacity={0.8}
         onPress={() => navigation.navigate('ProductDescription', plant)}>
         <View style={style.card}>
           <View style={{alignItems: 'flex-end'}}>
-            <View
+            <TouchableOpacity
               style={{
                 width: 30,
                 height: 30,
@@ -30,12 +89,15 @@ const Favorites = ({navigation}) => {
                 justifyContent: 'center',
                 alignItems: 'center',
                 backgroundColor: 'rgba(0,0,0,0.2) ',
-              }}>
+              }}
+
+              onPress = {() => removeFavorite(plant)}
+              >
               <Icon
                 name="delete"
                 size={18}
               />
-            </View>
+            </TouchableOpacity>
           </View>
 
           <View
@@ -43,10 +105,13 @@ const Favorites = ({navigation}) => {
               height: 100,
               alignItems: 'center',
             }}>
-            <Image
-              source={plant.img}
-              style={{flex: 1, resizeMode: 'contain'}}
-            />
+              {
+                plant.imageUri && 
+                <Image
+                source={{ uri: plant.imageUri }}
+                style={{flex: 1, resizeMode: 'contain', width: 100, height: 100}}
+              />
+              }
           </View>
 
           <Text style={{fontWeight: 'bold', fontSize: 17, marginTop: 10}}>
@@ -67,6 +132,7 @@ const Favorites = ({navigation}) => {
     );
   };
   return (
+    products.length != 0 &&
     <SafeAreaView
       style={{flex: 1, paddingHorizontal: 20, backgroundColor: COLORS.white}}>
       <FlatList
@@ -77,7 +143,7 @@ const Favorites = ({navigation}) => {
           paddingBottom: 50,
         }}
         numColumns={2}
-        data={plants}
+        data={products}
         renderItem={({item}) => {
           return <Card plant={item} />;
         }}
