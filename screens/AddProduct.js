@@ -7,6 +7,7 @@ import {collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db, auth } from '../index';
 
 
+
 const AddProduct = () => {
   const [productName, setProductName] = useState('');
   const [productPrice, setProductPrice] = useState('');
