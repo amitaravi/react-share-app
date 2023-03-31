@@ -61,7 +61,7 @@ const Chat = ({ navigation }) => {
                 createdAt: doc.data().createdAt.toDate(),
                 text: doc.data().text,
                 user: doc.data().user,
-            })).reverse() // reverse the order to display messages chronologically
+            })) // reverse the order to display messages chronologically
             );
         });
 
@@ -90,8 +90,10 @@ const Chat = ({ navigation }) => {
         }, { merge: true });
 
         // update the messages state
-        setMessages(previousMessages => GiftedChat.append(previousMessages, messages));
-    }, [chatId]);
+        setMessages(previousMessages =>
+            GiftedChat.append(previousMessages, messages)
+          );
+      }, [chatId]);
 
     if (!chatId) {
         // loading indicator
