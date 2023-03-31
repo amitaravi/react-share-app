@@ -13,6 +13,7 @@ import { signOut } from "firebase/auth";
 import { auth } from "../../index";
 import SearchPage from "../../screens/TestPage";
 import Chat from "../../screens/Chat";
+import ChatScreen from "../../screens/ChatScreen";
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -41,6 +42,7 @@ function HomeStack(){
         <Drawer.Screen name="AddProduct" component={AddProduct} options={{ title: 'Add Products' }} />
         <Drawer.Screen name="MyProducts" component={UserProducts} options={{ title: 'Edit Products' }} />
         <Drawer.Screen name="Favorites" component={Favorites} options={{ title: 'Favorites' }} />
+        <Drawer.Screen name="Chats" component={ChatScreen} options={{ title: 'My Chats' }} />
       </Drawer.Navigator>
      
   
