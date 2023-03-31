@@ -2,7 +2,7 @@ import React from 'react';
 import {View, SafeAreaView, Image, Text, StyleSheet} from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import COLORS from '../src/consts/colors';
-
+import {auth} from '../index';
 
 const ProductDescription = ({navigation, route}) => {
   const plant = route.params;
@@ -68,7 +68,7 @@ const ProductDescription = ({navigation, route}) => {
               justifyContent: 'center',
             }}>
           
-              <TouchableOpacity style={style.buyBtn} onPress={() => navigation.navigate('ChatBot')}>
+          <TouchableOpacity style={style.buyBtn} onPress={() => navigation.navigate('ChatBot', { sellerId: plant.createdBy, buyerId: auth.currentUser.uid })}>
                 <Text  style={{color: COLORS.white, fontSize: 18, fontWeight: 'bold'}}>Contact Seller</Text>
               </TouchableOpacity>
     
