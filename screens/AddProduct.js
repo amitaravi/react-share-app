@@ -2,10 +2,10 @@ import React, { useCallback, useState } from 'react';
 import { View, Text, Button, Image, TextInput, TouchableOpacity, StyleSheet, ScrollView, SafeAreaView, StatusBar } from 'react-native';
 import * as ImagePicker from 'react-native-image-picker';
 import { Picker } from '@react-native-picker/picker';
-import {collection, addDoc, serverTimestamp } from 'firebase/firestore';
-// import { getAuth } from 'firebase/auth';
-import { db, auth } from '../index';
-
+import { getFirestore, collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+// import { storage } from '../index';
 
 
 const AddProduct = () => {
@@ -42,39 +42,60 @@ const AddProduct = () => {
   }, []);
 
   const addProduct = async (product, user) => {
-    // const db = getFirestore(app);
-    // const productsCollectionRef = ;
-  
+    const db = getFirestore();
+    const productsCollectionRef = collection(db, 'products');
+    
     try {
-      const docRef = await addDoc(collection(db, "products"), {
+      // Upload the image to Firebase Storage
+      console.log("1")  
+      const storageRef = ref(getStorage(), `product-images/${Date.now()}`);
+      console.log("2")
+      await uploadBytes(storageRef, product.imageUri);
+  
+      // Get the image URL from Firebase Storage
+      const imageUri = await getDownloadURL(storageRef);
+      console.log('Product data:', {
         name: product.name,
         price: product.price,
         description: product.description,
         category: product.category,
         purchaseType: product.purchaseType,
-        imageUri: product.imageUri,
+        imageUri: imageUri,
+        createdBy: user.uid,
+        createdAt: serverTimestamp(),
+      });
+  
+      // Save the product data in Firestore
+      const docRef = await addDoc(productsCollectionRef, {
+        name: product.name,
+        price: product.price,
+        description: product.description,
+        category: product.category,
+        purchaseType: product.purchaseType,
+        imageUri: imageUri,
         createdBy: user.uid,
         createdAt: serverTimestamp(),
       });
       console.log(`Product added with ID: ${docRef.id}`);
     } catch (error) {
       console.error('Error adding product:', error);
-
     }
   };
 
-  const handleAddProduct = () => {
+  const handleAddProduct = async () => {
+    const response = await fetch(pickerResponse.assets[0].uri);
+    const imageBlob = await response.blob();
+    
     const product = {
       name: productName,
       price: productPrice,
       description:productDescription,
       category: productCategory,
       purchaseType:  productPurchaseType,
-      imageUri: pickerResponse.assets[0].uri,
+      imageUri: imageBlob,
     };
     console.log(product);
-    const user = auth.currentUser;
-    console.log(user.uid);
+    const user = getAuth().currentUser;
     addProduct(product, user);
 
   };
@@ -84,22 +105,20 @@ const AddProduct = () => {
   return (
     <SafeAreaView style={{flex: 1}}>
           <ScrollView contentContainerStyle={styles.gradient}>
+    <Text style={styles.heading}>Upload Product</Text>
       <View style={styles.container}>
      
         <Text style={styles.titlee}>Product Name</Text>
-      <TextInput style={styles.input} placeholder="Name of the Product" value={productName} onChangeText={setProductName} />
+      <TextInput style={styles.input} placeholder="" value={productName} onChangeText={setProductName} />
       <Text style={styles.titlee}>Choose Image</Text>
       <View style={{alignItems:'center'}}>
-        <TouchableOpacity onPress={onImageLibraryPress}>
-        <Image
+      <Image
            style={styles.avatarImage}
            source={uri ? { uri } : require('../src/assets/imagePicker.png')}
          />
-
-        </TouchableOpacity>
-         {/* <TouchableOpacity style={styles.addButton} onPress={onImageLibraryPress}>
+         <TouchableOpacity style={styles.addButton} onPress={onImageLibraryPress}>
             <Image style={styles.addButtonIcon} source={require('../src/assets/addIcon.png')} />
-         </TouchableOpacity> */}
+         </TouchableOpacity>
       </View>
         
           {/* <View style={styles.buttonContainer}>
@@ -110,8 +129,7 @@ const AddProduct = () => {
         </View> */}
 
  <Text style={[styles.title, { marginBottom: 10 }]}>Category</Text>
-  <View style={{ borderWidth: 1, borderRadius: 10}}>
-  <Picker selectedValue={productCategory}
+ <Picker style={{ borderRadius: 10} } selectedValue={productCategory}
         onValueChange={(itemValue) => setProductCategory(itemValue)}
       >
         <Picker.Item label="Select a Category" value="" />
@@ -120,7 +138,6 @@ const AddProduct = () => {
         <Picker.Item label="Home and Garden" value="home-and-garden" />
         <Picker.Item label="Beauty and Personal Care" value="beauty-and-personal-care" />
       </Picker>
-  </View>
   <Text style={styles.title}>Price</Text>
       <TextInput placeholder="" value={productPrice} onChangeText={setProductPrice} style={styles.input} />
         
@@ -129,7 +146,7 @@ const AddProduct = () => {
       <TextInput placeholder="" value={productDescription} onChangeText={setProductDescription} style={[styles.input, {height: 80}]} multiline={true}
   numberOfLines={4} />
       <Text style={[styles.title, { marginBottom: 10 }]}>Purchase Type</Text>
-      <View style={{ borderWidth: 1, borderRadius: 10}}>
+      
       <Picker style={{ borderRadius: 10 }}
         selectedValue={productPurchaseType}
         onValueChange={(itemValue) => setProductPurchaseType(itemValue)}
@@ -138,11 +155,12 @@ const AddProduct = () => {
         <Picker.Item label="Rent" value="rent" />
         <Picker.Item label="Buy" value="buy" />
       </Picker>
-
-      </View>
-     <TouchableOpacity style={styles.button} onPress={handleAddProduct}>
-        <Text style={styles.buttonText}>Upload</Text>
-      </TouchableOpacity>
+     
+       <View style={styles.buttonContainer}>
+         <TouchableOpacity style={styles.button} onPress={handleAddProduct}>
+        <Text style={styles.buttonText}>Add Product</Text>
+        </TouchableOpacity>
+        </View>
  </View>
     </ScrollView>
     </SafeAreaView>
@@ -153,7 +171,7 @@ const styles = StyleSheet.create({
     gradient: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff'
+    backgroundColor: '#bca0dc',
   },
   container: {
     width: '80%',
@@ -164,34 +182,37 @@ const styles = StyleSheet.create({
 
   marginBottom: 20,
   marginTop: 10,
+  backgroundColor: '#fff',
   borderRadius: 5,
   paddingLeft: 10,
   paddingRight: 10,
-  borderWidth: 1
   },
-
-  titlee:{
-    fontSize: 20,  
-    fontWeight: 'bold',
+  buttonContainer: {
     marginTop: 20,
-    color:'#1E1E1E',
+    flexDirection: 'row',
+    
+    justifyContent: 'center',
+    marginLeft: 70,
+    marginRight: 70,
+  },
+  titlee:{
+    fontSize: 16,  
+    fontWeight: 'bold',
+    marginTop: 20
     },
   title: {
-    fontSize: 20,
-    color:'#1E1E1E',
+    fontSize: 16,
+    
     fontWeight: 'bold',
     marginTop: 20,
     
   },
  button: {
     marginTop:20,
-    borderRadius: 30,
+    borderRadius: 5,
     padding: 15,
-    backgroundColor: '#BCA0DC',
-    marginBottom: 30,
-    width: '60%',
-    alignSelf: 'center',
-    alignItems: 'center'
+    borderWidth: 1,
+    marginBottom: 30
    
   },
   heading: {
@@ -204,15 +225,14 @@ const styles = StyleSheet.create({
   alignSelf: 'flex-start', // Align to the left
 },
   buttonText: {
-    color: '#fff',
-    fontSize: 20,
-    fontWeight: '500',
+    color: 'black',
+ 
+    fontWeight: 'bold',
   },
   avatarImage: {
     height: 150,
     width: 150,
     overflow: 'hidden',
-    
   },
   addButton: {
     height: 24,
