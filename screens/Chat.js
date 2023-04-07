@@ -86,7 +86,13 @@ const Chat = ({ navigation }) => {
 
         // update the last modified timestamp of the chat document
         setDoc(chatRef, {
-        lastModifiedAt: new Date()
+        lastModifiedAt: new Date(),
+        lastMessage: {
+          _id,
+          createdAt: new Date(createdAt),
+          text,
+          user
+        }
         }, { merge: true });
 
         // update the messages state

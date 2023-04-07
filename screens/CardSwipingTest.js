@@ -8,7 +8,7 @@ import {db,auth} from '../index';
 import { LogBox } from 'react-native';
 
 
-  const handleAddToFavorites = (product) => {
+  const handleAddToFavorites = async (product) => {
     // Add product to favorites of current user in Firebase Firestore
   
     console.log('1');
@@ -18,41 +18,47 @@ import { LogBox } from 'react-native';
     //   favorites: firebase.firestore.FieldValue.arrayUnion(productId)
     // })
     const userRef = doc(db, "users", user.uid);
+
+    const addUserIfNotExists = async () => {
+      const docSnap = await getDoc(userRef);
+      if (!docSnap.exists()) {
+        const initialData = {
+          favorites: [],
+        };
+        await setDoc(userRef, initialData);
+        console.log("User document created.");
+      } else {
+        console.log("User document already exists.");
+      }
+    };
+
+    await addUserIfNotExists();
+    
     // updateDoc(userRef, {
     //   favorites: arrayUnion(productId)
     // })
-    getDoc(userRef)
-    .then((doc) => {
-        if(doc.exists()){
-            const existingFavorites = doc.data().favorites || [];
-            const updatedFavorites = [...existingFavorites, product];
+    const docSnap = await getDoc(userRef)
 
-            if(existingFavorites.length == 0){
-                setDoc(userRef, { favorites: updatedFavorites }, { merge: true })
-                .then(() => console.log('Product added to favorites'))
-                .catch(error => console.log(error));
-            }
-            else{
-                const exists = existingFavorites.find(item => item.name === product.name);
-                console.log(exists);
-                if(!exists){
-                    setDoc(userRef, { favorites: updatedFavorites }, { merge: true })
-                    .then(() => console.log('Product added to favorites'))
-                    .catch(error => console.log(error));
-                   
-                   }
-                else{
-                    console.log("Product is already in favorites")
-                
-                }
+    const existingFavorites = docSnap.data().favorites || [];
+    const updatedFavorites = [...existingFavorites, product];
 
+    if(existingFavorites.length == 0){
+        setDoc(userRef, { favorites: updatedFavorites }, { merge: true })
+        .then(() => console.log('Product added to favorites'))
+        .catch(error => console.log(error));
+    }
+    else{
+        const exists = existingFavorites.find(item => item.name === product.name);
+        console.log(exists);
+        if(!exists){
+            setDoc(userRef, { favorites: updatedFavorites }, { merge: true })
+            .then(() => console.log('Product added to favorites'))
+            .catch(error => console.log(error));  
             }
-        } else{
-            console.log('User document does not exist')
+        else{
+            console.log("Product is already in favorites")
         }
-    })
-    .catch(error => console.log(error));
-
+    }
   }
 
 
