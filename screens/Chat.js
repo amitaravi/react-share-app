@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useCallback, useLayoutEffect } from 'react';
 import { collection, addDoc, orderBy, query, where, onSnapshot, doc, limit, setDoc } from 'firebase/firestore';
 import { auth, db } from '../index';
-import { GiftedChat } from 'react-native-gifted-chat';
+import { Bubble, GiftedChat } from 'react-native-gifted-chat';
 import { useRoute } from '@react-navigation/native';
-import { ActivityIndicator } from 'react-native';
+import { ActivityIndicator, StyleSheet } from 'react-native';
 
 const Chat = ({ navigation }) => {
     const [messages, setMessages] = useState([]);
@@ -104,15 +104,32 @@ const Chat = ({ navigation }) => {
         <GiftedChat
         messages={messages}
         onSend={onSend}
+        textInputProps={{
+          style:styles.inputText
+        }}
         user={{
             _id: auth.currentUser.email,
             avatar: 'https://i.pravatar.cc/300',
         }}
         messagesContainerStyle={{
             backgroundColor: '#fff',
+            
         }}
+        
         />
     );
 };
+const styles = StyleSheet.create({
+  inputText:{
+    height: 40,
+    flex: 1,
+    paddingHorizontal: 12,
+    backgroundColor: '#F5F5F5',
+    borderRadius: 20,
+    fontSize: 16,
+    marginRight: 12,
+    color: 'black'
+  }
+})
 
 export default Chat;

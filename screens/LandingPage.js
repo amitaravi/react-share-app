@@ -89,6 +89,7 @@ const LandingPage = ({ navigation }) => {
         <Text style={styles.dropdownLabel}>Category:</Text>
         <View style={{borderWidth: 1, borderRadius: 10}}>
         <Picker
+          dropdownIconColor={'black'}
           style={styles.picker}
           selectedValue={cselected}
           onValueChange={(value) => setcSelected(value)}
@@ -106,6 +107,7 @@ const LandingPage = ({ navigation }) => {
         <Picker
           style={styles.picker}
           selectedValue={tselected}
+          dropdownIconColor={'black'}
           onValueChange={(value) => settSelected(value)}
         >
           <Picker.Item label="Select a Purchase Type" value="" />
@@ -117,9 +119,13 @@ const LandingPage = ({ navigation }) => {
         </View>
         <View style={{alignItems: 'center'}}>
           <TouchableOpacity style={styles.buttonContainer} onPress={()=>{
-                navigation.navigate('SearchProducts',{
-                  category: cselected,
-                  type: tselected
+                // navigation.navigate('SearchProducts',{
+                //   category: cselected,
+                //   type: tselected
+                // })
+                navigation.navigate('SwipingTest',{
+                       category: cselected,
+                       type: tselected
                 })
           }}>
             <Text style={{fontSize: 20, color: '#fff', fontWeight: '500'}}>Search</Text>
@@ -170,7 +176,7 @@ const styles = StyleSheet.create({
   picker: {
     borderWidth: 1,
     borderRadius: 10,
-  
+    color: '#000000',
     width: '80%',
     height: 25,
  

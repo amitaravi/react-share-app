@@ -131,10 +131,10 @@ const SearchProducts = ({navigation, route}) => {
             justifyContent: 'space-between',
             marginTop: 5,
           }}>
-          <Text style={{fontWeight: 'bold', fontSize: 17, marginTop: 10}}>
+          <Text style={{fontWeight: 'bold', fontSize: 17, marginTop: 10, color: '#555555'}}>
             {plant.name}
           </Text>
-          <Text style={{fontSize: 19, fontWeight: 'bold'}}>
+          <Text style={{fontSize: 19, fontWeight: 'bold',color: '#555555'}}>
               ${plant.price}
             </Text>
          

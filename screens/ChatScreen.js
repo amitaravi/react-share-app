@@ -45,8 +45,11 @@ const ChatScreen = () => {
 
     const renderItem = ({ item }) => (
         <TouchableOpacity style={styles.itemContainer} onPress={() => handleChatPress(item.id, item.participants)}>
+        <View style={{borderWidth: 1, padding: 10, borderRadius: 10}}>
         <Text style={styles.itemText}>{item.participants[0] === auth.currentUser.uid ? item.participants[1] : item.participants[0]}</Text>
         <Text style={styles.itemText}>{item.lastMessage ? item.lastMessage.text : ''}</Text>
+
+        </View>
         </TouchableOpacity>
     );
 
@@ -90,7 +93,7 @@ const styles = StyleSheet.create({
     emptyText: {
         fontSize: 16,
         fontWeight: 'bold',
-        color: 'gray',
+        color: 'grey',
     },
     listContainer: {
         padding: 16,
@@ -101,6 +104,8 @@ const styles = StyleSheet.create({
     itemText: {
         fontSize: 16,
         fontWeight: 'bold',
+        color: 'grey', 
+       
     },
 });
 

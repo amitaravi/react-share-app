@@ -8,7 +8,7 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 // import { storage } from '../index';
 
 
-const AddProduct = () => {
+const AddProduct = ({navigation}) => {
   const [productName, setProductName] = useState('');
   const [productPrice, setProductPrice] = useState('');
   const [productDescription, setProductDescription] = useState('');
@@ -97,6 +97,7 @@ const AddProduct = () => {
     console.log(product);
     const user = getAuth().currentUser;
     addProduct(product, user);
+    navigation.navigate('LandingPage');
 
   };
 
@@ -112,13 +113,16 @@ const AddProduct = () => {
       <TextInput style={styles.input} placeholder="" value={productName} onChangeText={setProductName} />
       <Text style={styles.titlee}>Choose Image</Text>
       <View style={{alignItems:'center'}}>
-      <Image
+        <TouchableOpacity onPress={onImageLibraryPress}>
+        <Image
            style={styles.avatarImage}
            source={uri ? { uri } : require('../src/assets/imagePicker.png')}
          />
-         <TouchableOpacity style={styles.addButton} onPress={onImageLibraryPress}>
+
+        </TouchableOpacity>
+         {/* <TouchableOpacity style={styles.addButton} onPress={onImageLibraryPress}>
             <Image style={styles.addButtonIcon} source={require('../src/assets/addIcon.png')} />
-         </TouchableOpacity>
+         </TouchableOpacity> */}
       </View>
         
           {/* <View style={styles.buttonContainer}>
@@ -129,7 +133,7 @@ const AddProduct = () => {
         </View> */}
 
  <Text style={[styles.title, { marginBottom: 10 }]}>Category</Text>
- <Picker style={{ borderRadius: 10} } selectedValue={productCategory}
+ <Picker style={{ borderRadius: 10, borderWidth: 1, borderColor: 'black', color:'black'} } selectedValue={productCategory}
         onValueChange={(itemValue) => setProductCategory(itemValue)}
       >
         <Picker.Item label="Select a Category" value="" />
@@ -147,7 +151,7 @@ const AddProduct = () => {
   numberOfLines={4} />
       <Text style={[styles.title, { marginBottom: 10 }]}>Purchase Type</Text>
       
-      <Picker style={{ borderRadius: 10 }}
+      <Picker style={{ borderRadius: 10, color:'black' }}
         selectedValue={productPurchaseType}
         onValueChange={(itemValue) => setProductPurchaseType(itemValue)}
       >
@@ -179,13 +183,15 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   input:{
-
+  color: 'black',
   marginBottom: 20,
   marginTop: 10,
   backgroundColor: '#fff',
   borderRadius: 5,
   paddingLeft: 10,
   paddingRight: 10,
+  borderColor: 'black',
+  borderWidth: 1
   },
   buttonContainer: {
     marginTop: 20,
@@ -194,6 +200,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginLeft: 70,
     marginRight: 70,
+    width: '50%'
   },
   titlee:{
     fontSize: 16,  

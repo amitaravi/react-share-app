@@ -1,0 +1,194 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.ntushare"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="21"
+8-->C:\Users\sugan\Desktop\ASE4\metaverse-ntushare\android\app\src\main\AndroidManifest.xml
+9        android:targetSdkVersion="33" />
+9-->C:\Users\sugan\Desktop\ASE4\metaverse-ntushare\android\app\src\main\AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->C:\Users\sugan\Desktop\ASE4\metaverse-ntushare\android\app\src\main\AndroidManifest.xml:3:5-67
+11-->C:\Users\sugan\Desktop\ASE4\metaverse-ntushare\android\app\src\main\AndroidManifest.xml:3:22-64
+12    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+12-->[com.google.android.gms:play-services-measurement-api:21.2.0] C:\Users\sugan\.gradle\caches\transforms-3\722c00e443e5a3013226aa6f18eba655\transformed\jetified-play-services-measurement-api-21.2.0\AndroidManifest.xml:23:5-79
+12-->[com.google.android.gms:play-services-measurement-api:21.2.0] C:\Users\sugan\.gradle\caches\transforms-3\722c00e443e5a3013226aa6f18eba655\transformed\jetified-play-services-measurement-api-21.2.0\AndroidManifest.xml:23:22-76
+13    <uses-permission android:name="android.permission.WAKE_LOCK" />
+13-->[com.google.android.gms:play-services-measurement-api:21.2.0] C:\Users\sugan\.gradle\caches\transforms-3\722c00e443e5a3013226aa6f18eba655\transformed\jetified-play-services-measurement-api-21.2.0\AndroidManifest.xml:24:5-68
+13-->[com.google.android.gms:play-services-measurement-api:21.2.0] C:\Users\sugan\.gradle\caches\transforms-3\722c00e443e5a3013226aa6f18eba655\transformed\jetified-play-services-measurement-api-21.2.0\AndroidManifest.xml:24:22-65
+14    <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
+14-->[com.google.android.gms:play-services-measurement-api:21.2.0] C:\Users\sugan\.gradle\caches\transforms-3\722c00e443e5a3013226aa6f18eba655\transformed\jetified-play-services-measurement-api-21.2.0\AndroidManifest.xml:25:5-79
+14-->[com.google.android.gms:play-services-measurement-api:21.2.0] C:\Users\sugan\.gradle\caches\transforms-3\722c00e443e5a3013226aa6f18eba655\transformed\jetified-play-services-measurement-api-21.2.0\AndroidManifest.xml:25:22-76
+15    <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" />
+15-->[com.google.android.gms:play-services-measurement:21.2.0] C:\Users\sugan\.gradle\caches\transforms-3\3d1c89da6364ff9ef77b14b9173fdc4d\transformed\jetified-play-services-measurement-21.2.0\AndroidManifest.xml:26:5-110
+15-->[com.google.android.gms:play-services-measurement:21.2.0] C:\Users\sugan\.gradle\caches\transforms-3\3d1c89da6364ff9ef77b14b9173fdc4d\transformed\jetified-play-services-measurement-21.2.0\AndroidManifest.xml:26:22-107
+16
+17    <application
+17-->C:\Users\sugan\Desktop\ASE4\metaverse-ntushare\android\app\src\main\AndroidManifest.xml:5:5-24:19
+18        android:name="com.ntushare.MainApplication"
+18-->C:\Users\sugan\Desktop\ASE4\metaverse-ntushare\android\app\src\main\AndroidManifest.xml:6:7-38
+19        android:allowBackup="false"
+19-->C:\Users\sugan\Desktop\ASE4\metaverse-ntushare\android\app\src\main\AndroidManifest.xml:10:7-34
+20        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+20-->[androidx.core:core:1.7.0] C:\Users\sugan\.gradle\caches\transforms-3\3c178461f96884367004b56ef82718bc\transformed\core-1.7.0\AndroidManifest.xml:24:18-86
+21        android:icon="@mipmap/ic_launcher"
+21-->C:\Users\sugan\Desktop\ASE4\metaverse-ntushare\android\app\src\main\AndroidManifest.xml:8:7-41
+22        android:label="@string/app_name"
+22-->C:\Users\sugan\Desktop\ASE4\metaverse-ntushare\android\app\src\main\AndroidManifest.xml:7:7-39
+23        android:roundIcon="@mipmap/ic_launcher_round"
+23-->C:\Users\sugan\Desktop\ASE4\metaverse-ntushare\android\app\src\main\AndroidManifest.xml:9:7-52
+24        android:theme="@style/AppTheme" >
+24-->C:\Users\sugan\Desktop\ASE4\metaverse-ntushare\android\app\src\main\AndroidManifest.xml:11:7-38
+25        <activity
+25-->C:\Users\sugan\Desktop\ASE4\metaverse-ntushare\android\app\src\main\AndroidManifest.xml:12:7-23:18
+26            android:name="com.ntushare.MainActivity"
+26-->C:\Users\sugan\Desktop\ASE4\metaverse-ntushare\android\app\src\main\AndroidManifest.xml:13:9-37
+27            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize|uiMode"
+27-->C:\Users\sugan\Desktop\ASE4\metaverse-ntushare\android\app\src\main\AndroidManifest.xml:15:9-118
+28            android:exported="true"
+28-->C:\Users\sugan\Desktop\ASE4\metaverse-ntushare\android\app\src\main\AndroidManifest.xml:18:9-32
+29            android:label="@string/app_name"
+29-->C:\Users\sugan\Desktop\ASE4\metaverse-ntushare\android\app\src\main\AndroidManifest.xml:14:9-41
+30            android:launchMode="singleTask"
+30-->C:\Users\sugan\Desktop\ASE4\metaverse-ntushare\android\app\src\main\AndroidManifest.xml:16:9-40
+31            android:windowSoftInputMode="adjustResize" >
+31-->C:\Users\sugan\Desktop\ASE4\metaverse-ntushare\android\app\src\main\AndroidManifest.xml:17:9-51
+32            <intent-filter>
+32-->C:\Users\sugan\Desktop\ASE4\metaverse-ntushare\android\app\src\main\AndroidManifest.xml:19:9-22:25
+33                <action android:name="android.intent.action.MAIN" />
+33-->C:\Users\sugan\Desktop\ASE4\metaverse-ntushare\android\app\src\main\AndroidManifest.xml:20:13-65
+33-->C:\Users\sugan\Desktop\ASE4\metaverse-ntushare\android\app\src\main\AndroidManifest.xml:20:21-62
+34
+35                <category android:name="android.intent.category.LAUNCHER" />
+35-->C:\Users\sugan\Desktop\ASE4\metaverse-ntushare\android\app\src\main\AndroidManifest.xml:21:13-73
+35-->C:\Users\sugan\Desktop\ASE4\metaverse-ntushare\android\app\src\main\AndroidManifest.xml:21:23-70
+36            </intent-filter>
+37        </activity>
+38
+39        <service
+39-->[com.google.firebase:firebase-analytics-ktx:21.2.0] C:\Users\sugan\.gradle\caches\transforms-3\27a68b56135ef725c7537a2384838df1\transformed\jetified-firebase-analytics-ktx-21.2.0\AndroidManifest.xml:8:9-14:19
+40            android:name="com.google.firebase.components.ComponentDiscoveryService"
+40-->[com.google.firebase:firebase-analytics-ktx:21.2.0] C:\Users\sugan\.gradle\caches\transforms-3\27a68b56135ef725c7537a2384838df1\transformed\jetified-firebase-analytics-ktx-21.2.0\AndroidManifest.xml:9:13-84
+41            android:directBootAware="true"
+41-->[com.google.firebase:firebase-common:20.3.1] C:\Users\sugan\.gradle\caches\transforms-3\f7f232a286d36d5374bf388fa55b5017\transformed\jetified-firebase-common-20.3.1\AndroidManifest.xml:34:13-43
+42            android:exported="false" >
+42-->[com.google.firebase:firebase-analytics-ktx:21.2.0] C:\Users\sugan\.gradle\caches\transforms-3\27a68b56135ef725c7537a2384838df1\transformed\jetified-firebase-analytics-ktx-21.2.0\AndroidManifest.xml:10:13-37
+43            <meta-data
+43-->[com.google.firebase:firebase-analytics-ktx:21.2.0] C:\Users\sugan\.gradle\caches\transforms-3\27a68b56135ef725c7537a2384838df1\transformed\jetified-firebase-analytics-ktx-21.2.0\AndroidManifest.xml:11:13-13:85
+44                android:name="com.google.firebase.components:com.google.firebase.analytics.ktx.FirebaseAnalyticsKtxRegistrar"
+44-->[com.google.firebase:firebase-analytics-ktx:21.2.0] C:\Users\sugan\.gradle\caches\transforms-3\27a68b56135ef725c7537a2384838df1\transformed\jetified-firebase-analytics-ktx-21.2.0\AndroidManifest.xml:12:17-126
+45                android:value="com.google.firebase.components.ComponentRegistrar" />
+45-->[com.google.firebase:firebase-analytics-ktx:21.2.0] C:\Users\sugan\.gradle\caches\transforms-3\27a68b56135ef725c7537a2384838df1\transformed\jetified-firebase-analytics-ktx-21.2.0\AndroidManifest.xml:13:17-82
+46            <meta-data
+46-->[com.google.firebase:firebase-common-ktx:20.3.1] C:\Users\sugan\.gradle\caches\transforms-3\a0731a88a5a83fc4f4d80e3f2563f6da\transformed\jetified-firebase-common-ktx-20.3.1\AndroidManifest.xml:14:13-16:85
+47                android:name="com.google.firebase.components:com.google.firebase.ktx.FirebaseCommonKtxRegistrar"
+47-->[com.google.firebase:firebase-common-ktx:20.3.1] C:\Users\sugan\.gradle\caches\transforms-3\a0731a88a5a83fc4f4d80e3f2563f6da\transformed\jetified-firebase-common-ktx-20.3.1\AndroidManifest.xml:15:17-113
+48                android:value="com.google.firebase.components.ComponentRegistrar" />
+48-->[com.google.firebase:firebase-common-ktx:20.3.1] C:\Users\sugan\.gradle\caches\transforms-3\a0731a88a5a83fc4f4d80e3f2563f6da\transformed\jetified-firebase-common-ktx-20.3.1\AndroidManifest.xml:16:17-82
+49            <meta-data
+49-->[com.google.android.gms:play-services-measurement-api:21.2.0] C:\Users\sugan\.gradle\caches\transforms-3\722c00e443e5a3013226aa6f18eba655\transformed\jetified-play-services-measurement-api-21.2.0\AndroidManifest.xml:31:13-33:85
+50                android:name="com.google.firebase.components:com.google.firebase.analytics.connector.internal.AnalyticsConnectorRegistrar"
+50-->[com.google.android.gms:play-services-measurement-api:21.2.0] C:\Users\sugan\.gradle\caches\transforms-3\722c00e443e5a3013226aa6f18eba655\transformed\jetified-play-services-measurement-api-21.2.0\AndroidManifest.xml:32:17-139
+51                android:value="com.google.firebase.components.ComponentRegistrar" />
+51-->[com.google.android.gms:play-services-measurement-api:21.2.0] C:\Users\sugan\.gradle\caches\transforms-3\722c00e443e5a3013226aa6f18eba655\transformed\jetified-play-services-measurement-api-21.2.0\AndroidManifest.xml:33:17-82
+52            <meta-data
+52-->[com.google.firebase:firebase-installations:17.1.3] C:\Users\sugan\.gradle\caches\transforms-3\0bf078e216bfeadc8f14e626fd08df81\transformed\jetified-firebase-installations-17.1.3\AndroidManifest.xml:17:13-19:85
+53                android:name="com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsRegistrar"
+53-->[com.google.firebase:firebase-installations:17.1.3] C:\Users\sugan\.gradle\caches\transforms-3\0bf078e216bfeadc8f14e626fd08df81\transformed\jetified-firebase-installations-17.1.3\AndroidManifest.xml:18:17-127
+54                android:value="com.google.firebase.components.ComponentRegistrar" />
+54-->[com.google.firebase:firebase-installations:17.1.3] C:\Users\sugan\.gradle\caches\transforms-3\0bf078e216bfeadc8f14e626fd08df81\transformed\jetified-firebase-installations-17.1.3\AndroidManifest.xml:19:17-82
+55        </service>
+56
+57        <provider
+57-->[:react-native-image-picker] C:\Users\sugan\Desktop\ASE4\metaverse-ntushare\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:10:9-18:20
+58            android:name="com.imagepicker.ImagePickerProvider"
+58-->[:react-native-image-picker] C:\Users\sugan\Desktop\ASE4\metaverse-ntushare\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:11:13-63
+59            android:authorities="com.ntushare.imagepickerprovider"
+59-->[:react-native-image-picker] C:\Users\sugan\Desktop\ASE4\metaverse-ntushare\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:12:13-71
+60            android:exported="false"
+60-->[:react-native-image-picker] C:\Users\sugan\Desktop\ASE4\metaverse-ntushare\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:13:13-37
+61            android:grantUriPermissions="true" >
+61-->[:react-native-image-picker] C:\Users\sugan\Desktop\ASE4\metaverse-ntushare\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:14:13-47
+62            <meta-data
+62-->[:react-native-image-picker] C:\Users\sugan\Desktop\ASE4\metaverse-ntushare\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:15:13-17:70
+63                android:name="android.support.FILE_PROVIDER_PATHS"
+63-->[:react-native-image-picker] C:\Users\sugan\Desktop\ASE4\metaverse-ntushare\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:16:17-67
+64                android:resource="@xml/imagepicker_provider_paths" />
+64-->[:react-native-image-picker] C:\Users\sugan\Desktop\ASE4\metaverse-ntushare\node_modules\react-native-image-picker\android\build\intermediates\merged_manifest\release\AndroidManifest.xml:17:17-67
+65        </provider>
+66        <provider
+66-->[com.google.firebase:firebase-common:20.3.1] C:\Users\sugan\.gradle\caches\transforms-3\f7f232a286d36d5374bf388fa55b5017\transformed\jetified-firebase-common-20.3.1\AndroidManifest.xml:25:9-30:39
+67            android:name="com.google.firebase.provider.FirebaseInitProvider"
+67-->[com.google.firebase:firebase-common:20.3.1] C:\Users\sugan\.gradle\caches\transforms-3\f7f232a286d36d5374bf388fa55b5017\transformed\jetified-firebase-common-20.3.1\AndroidManifest.xml:26:13-77
+68            android:authorities="com.ntushare.firebaseinitprovider"
+68-->[com.google.firebase:firebase-common:20.3.1] C:\Users\sugan\.gradle\caches\transforms-3\f7f232a286d36d5374bf388fa55b5017\transformed\jetified-firebase-common-20.3.1\AndroidManifest.xml:27:13-72
+69            android:directBootAware="true"
+69-->[com.google.firebase:firebase-common:20.3.1] C:\Users\sugan\.gradle\caches\transforms-3\f7f232a286d36d5374bf388fa55b5017\transformed\jetified-firebase-common-20.3.1\AndroidManifest.xml:28:13-43
+70            android:exported="false"
+70-->[com.google.firebase:firebase-common:20.3.1] C:\Users\sugan\.gradle\caches\transforms-3\f7f232a286d36d5374bf388fa55b5017\transformed\jetified-firebase-common-20.3.1\AndroidManifest.xml:29:13-37
+71            android:initOrder="100" />
+71-->[com.google.firebase:firebase-common:20.3.1] C:\Users\sugan\.gradle\caches\transforms-3\f7f232a286d36d5374bf388fa55b5017\transformed\jetified-firebase-common-20.3.1\AndroidManifest.xml:30:13-36
+72
+73        <receiver
+73-->[com.google.android.gms:play-services-measurement:21.2.0] C:\Users\sugan\.gradle\caches\transforms-3\3d1c89da6364ff9ef77b14b9173fdc4d\transformed\jetified-play-services-measurement-21.2.0\AndroidManifest.xml:29:9-33:20
+74            android:name="com.google.android.gms.measurement.AppMeasurementReceiver"
+74-->[com.google.android.gms:play-services-measurement:21.2.0] C:\Users\sugan\.gradle\caches\transforms-3\3d1c89da6364ff9ef77b14b9173fdc4d\transformed\jetified-play-services-measurement-21.2.0\AndroidManifest.xml:30:13-85
+75            android:enabled="true"
+75-->[com.google.android.gms:play-services-measurement:21.2.0] C:\Users\sugan\.gradle\caches\transforms-3\3d1c89da6364ff9ef77b14b9173fdc4d\transformed\jetified-play-services-measurement-21.2.0\AndroidManifest.xml:31:13-35
+76            android:exported="false" >
+76-->[com.google.android.gms:play-services-measurement:21.2.0] C:\Users\sugan\.gradle\caches\transforms-3\3d1c89da6364ff9ef77b14b9173fdc4d\transformed\jetified-play-services-measurement-21.2.0\AndroidManifest.xml:32:13-37
+77        </receiver>
+78
+79        <service
+79-->[com.google.android.gms:play-services-measurement:21.2.0] C:\Users\sugan\.gradle\caches\transforms-3\3d1c89da6364ff9ef77b14b9173fdc4d\transformed\jetified-play-services-measurement-21.2.0\AndroidManifest.xml:35:9-38:40
+80            android:name="com.google.android.gms.measurement.AppMeasurementService"
+80-->[com.google.android.gms:play-services-measurement:21.2.0] C:\Users\sugan\.gradle\caches\transforms-3\3d1c89da6364ff9ef77b14b9173fdc4d\transformed\jetified-play-services-measurement-21.2.0\AndroidManifest.xml:36:13-84
+81            android:enabled="true"
+81-->[com.google.android.gms:play-services-measurement:21.2.0] C:\Users\sugan\.gradle\caches\transforms-3\3d1c89da6364ff9ef77b14b9173fdc4d\transformed\jetified-play-services-measurement-21.2.0\AndroidManifest.xml:37:13-35
+82            android:exported="false" />
+82-->[com.google.android.gms:play-services-measurement:21.2.0] C:\Users\sugan\.gradle\caches\transforms-3\3d1c89da6364ff9ef77b14b9173fdc4d\transformed\jetified-play-services-measurement-21.2.0\AndroidManifest.xml:38:13-37
+83        <service
+83-->[com.google.android.gms:play-services-measurement:21.2.0] C:\Users\sugan\.gradle\caches\transforms-3\3d1c89da6364ff9ef77b14b9173fdc4d\transformed\jetified-play-services-measurement-21.2.0\AndroidManifest.xml:39:9-43:72
+84            android:name="com.google.android.gms.measurement.AppMeasurementJobService"
+84-->[com.google.android.gms:play-services-measurement:21.2.0] C:\Users\sugan\.gradle\caches\transforms-3\3d1c89da6364ff9ef77b14b9173fdc4d\transformed\jetified-play-services-measurement-21.2.0\AndroidManifest.xml:40:13-87
+85            android:enabled="true"
+85-->[com.google.android.gms:play-services-measurement:21.2.0] C:\Users\sugan\.gradle\caches\transforms-3\3d1c89da6364ff9ef77b14b9173fdc4d\transformed\jetified-play-services-measurement-21.2.0\AndroidManifest.xml:41:13-35
+86            android:exported="false"
+86-->[com.google.android.gms:play-services-measurement:21.2.0] C:\Users\sugan\.gradle\caches\transforms-3\3d1c89da6364ff9ef77b14b9173fdc4d\transformed\jetified-play-services-measurement-21.2.0\AndroidManifest.xml:42:13-37
+87            android:permission="android.permission.BIND_JOB_SERVICE" />
+87-->[com.google.android.gms:play-services-measurement:21.2.0] C:\Users\sugan\.gradle\caches\transforms-3\3d1c89da6364ff9ef77b14b9173fdc4d\transformed\jetified-play-services-measurement-21.2.0\AndroidManifest.xml:43:13-69
+88
+89        <meta-data
+89-->[com.google.android.gms:play-services-basement:18.1.0] C:\Users\sugan\.gradle\caches\transforms-3\ae4112fb0f3836b20480b0b5eafdd2bf\transformed\jetified-play-services-basement-18.1.0\AndroidManifest.xml:21:9-23:69
+90            android:name="com.google.android.gms.version"
+90-->[com.google.android.gms:play-services-basement:18.1.0] C:\Users\sugan\.gradle\caches\transforms-3\ae4112fb0f3836b20480b0b5eafdd2bf\transformed\jetified-play-services-basement-18.1.0\AndroidManifest.xml:22:13-58
+91            android:value="@integer/google_play_services_version" />
+91-->[com.google.android.gms:play-services-basement:18.1.0] C:\Users\sugan\.gradle\caches\transforms-3\ae4112fb0f3836b20480b0b5eafdd2bf\transformed\jetified-play-services-basement-18.1.0\AndroidManifest.xml:23:13-66
+92
+93        <provider
+93-->[androidx.emoji2:emoji2:1.0.0] C:\Users\sugan\.gradle\caches\transforms-3\38495ac4abbc404a2aad907c0586dd39\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:26:9-34:20
+94            android:name="androidx.startup.InitializationProvider"
+94-->[androidx.emoji2:emoji2:1.0.0] C:\Users\sugan\.gradle\caches\transforms-3\38495ac4abbc404a2aad907c0586dd39\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:27:13-67
+95            android:authorities="com.ntushare.androidx-startup"
+95-->[androidx.emoji2:emoji2:1.0.0] C:\Users\sugan\.gradle\caches\transforms-3\38495ac4abbc404a2aad907c0586dd39\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:28:13-68
+96            android:exported="false" >
+96-->[androidx.emoji2:emoji2:1.0.0] C:\Users\sugan\.gradle\caches\transforms-3\38495ac4abbc404a2aad907c0586dd39\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:29:13-37
+97            <meta-data
+97-->[androidx.emoji2:emoji2:1.0.0] C:\Users\sugan\.gradle\caches\transforms-3\38495ac4abbc404a2aad907c0586dd39\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:31:13-33:52
+98                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+98-->[androidx.emoji2:emoji2:1.0.0] C:\Users\sugan\.gradle\caches\transforms-3\38495ac4abbc404a2aad907c0586dd39\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:32:17-75
+99                android:value="androidx.startup" />
+99-->[androidx.emoji2:emoji2:1.0.0] C:\Users\sugan\.gradle\caches\transforms-3\38495ac4abbc404a2aad907c0586dd39\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:33:17-49
+100            <meta-data
+100-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\sugan\.gradle\caches\transforms-3\3444ba5c663a767529ed6a23e8f01ca0\transformed\jetified-lifecycle-process-2.4.0\AndroidManifest.xml:31:13-33:52
+101                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+101-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\sugan\.gradle\caches\transforms-3\3444ba5c663a767529ed6a23e8f01ca0\transformed\jetified-lifecycle-process-2.4.0\AndroidManifest.xml:32:17-78
+102                android:value="androidx.startup" />
+102-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\sugan\.gradle\caches\transforms-3\3444ba5c663a767529ed6a23e8f01ca0\transformed\jetified-lifecycle-process-2.4.0\AndroidManifest.xml:33:17-49
+103        </provider>
+104    </application>
+105
+106</manifest>

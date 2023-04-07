@@ -14,6 +14,9 @@ import { auth } from "../../index";
 import SearchPage from "../../screens/TestPage";
 import Chat from "../../screens/Chat";
 import ChatScreen from "../../screens/ChatScreen";
+import Card from "../../screens/CardSwipingTest";
+import SwipingScreen from "../../screens/CardSwipingTest";
+import SwipingCards from "../../screens/CardSwipingTest";
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -40,7 +43,7 @@ function HomeStack(){
       }}>
         <Drawer.Screen name="LandingPage" component={LandingPage}  options={{ title: 'Home' }}/>
         <Drawer.Screen name="AddProduct" component={AddProduct} options={{ title: 'Add Products' }} />
-        <Drawer.Screen name="MyProducts" component={UserProducts} options={{ title: 'Edit Products' }} />
+        {/* <Drawer.Screen name="MyProducts" component={UserProducts} options={{ title: 'Edit Products' }} /> */}
         <Drawer.Screen name="Favorites" component={Favorites} options={{ title: 'Favorites' }} />
         <Drawer.Screen name="Chats" component={ChatScreen} options={{ title: 'My Chats' }} />
       </Drawer.Navigator>
@@ -55,6 +58,7 @@ const UserStack = () => {
             <Stack.Navigator>
                 <Stack.Screen name="HomePage" component={HomeStack} options={{ headerShown: false }}/>
                 <Stack.Screen name="SearchProducts" component={SearchProducts} options={{ title: 'Products' }}/>
+                <Stack.Screen name="SwipingTest" component={SwipingCards} options={{title: 'SwipingTest'}}/>
                 <Stack.Screen name="ProductDescription" component={ProductDescription} options={{ title: 'Description' }}/>
                 <Stack.Screen name="ChatBot" component={Chat} options={{title: 'Chat'}}/>
             </Stack.Navigator>

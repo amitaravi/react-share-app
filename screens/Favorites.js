@@ -114,7 +114,7 @@ const Favorites = ({navigation}) => {
               }
           </View>
 
-          <Text style={{fontWeight: 'bold', fontSize: 17, marginTop: 10}}>
+          <Text style={{fontWeight: 'bold', fontSize: 17, marginTop: 10, color: 'black'}}>
             {plant.name}
           </Text>
           <View
@@ -123,7 +123,7 @@ const Favorites = ({navigation}) => {
               justifyContent: 'space-between',
               marginTop: 5,
             }}>
-            <Text style={{fontSize: 19, fontWeight: 'bold'}}>
+            <Text style={{fontSize: 19, fontWeight: 'bold', color: 'black'}}>
               ${plant.price}
             </Text>
           </View>

@@ -1,6 +1,6 @@
 import React from 'react';
-import {View, SafeAreaView, Image, Text, StyleSheet} from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import {View, SafeAreaView, Image, Text, StyleSheet,  TouchableOpacity } from 'react-native';
+// import {} from 'react-native-gesture-handler';
 import COLORS from '../src/consts/colors';
 import {auth} from '../index';
 
@@ -37,7 +37,7 @@ const ProductDescription = ({navigation, route}) => {
             justifyContent: 'space-between',
             alignItems: 'center',
           }}>
-          <Text style={{fontSize: 22, fontWeight: 'bold'}}>{plant.name}</Text>
+          <Text style={{fontSize: 22, fontWeight: 'bold',  color: '#555555'}}>{plant.name}</Text>
           <View style={style.priceTag}>
             <Text
               style={{
@@ -45,13 +45,14 @@ const ProductDescription = ({navigation, route}) => {
                 color: COLORS.white,
                 fontWeight: 'bold',
                 fontSize: 16,
+              
               }}>
               ${plant.price}
             </Text>
           </View>
         </View>
         <View style={{paddingHorizontal: 20, marginTop: 10}}>
-          <Text style={{fontSize: 20, fontWeight: 'bold'}}>About</Text>
+          <Text style={{fontSize: 20, fontWeight: 'bold',color: COLORS.purple}}>About</Text>
           <Text
             style={{
               color: 'grey',
