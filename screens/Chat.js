@@ -14,13 +14,15 @@ const Chat = ({ navigation, route }) => {
     console.log('sellerId:', sellerId);
     console.log('buyerId:', buyerId);
 
+    const participants = [buyerId, sellerId].sort();
+
     useLayoutEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
           if (user) {
             const chatsRef = collection(db, "chats");
             const queryRef = query(
               chatsRef,
-              where("participants", "==", [buyerId, sellerId]),
+              where("participants", "==", participants),
               limit(1)
             );
       
@@ -29,7 +31,7 @@ const Chat = ({ navigation, route }) => {
                 // no chat document exists for this seller/buyer pair, create a new document
                 const newChatRef = doc(chatsRef);
                 const newChatData = {
-                  participants: [buyerId, sellerId],
+                  participants: participants,
                   createdAt: new Date(),
                 };
                 await setDoc(newChatRef, newChatData);
