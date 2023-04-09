@@ -81,7 +81,9 @@ const SwipingCards = ({route, navigation}) => {
     useEffect(() => {
         LogBox.ignoreLogs(['Animated: `useNativeDriver`']);
         const fetchData = async(category, type, price) => {
+          const userEmail = auth.currentUser.email;
           let q = collection(db, 'products');
+          q = query(q, where('email', '!=', userEmail))
           if (category) {
             q = query(q, where('category', '==', category));
           }
