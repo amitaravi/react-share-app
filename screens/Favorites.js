@@ -88,7 +88,6 @@ const Favorites = ({navigation}) => {
                 borderRadius: 20,
                 justifyContent: 'center',
                 alignItems: 'center',
-                backgroundColor: 'rgba(0,0,0,0.2) ',
               }}
 
               onPress = {() => removeFavorite(plant)}
@@ -96,6 +95,7 @@ const Favorites = ({navigation}) => {
               <Icon
                 name="delete"
                 size={18}
+                color="#bca0dc"
               />
             </TouchableOpacity>
           </View>
@@ -109,24 +109,18 @@ const Favorites = ({navigation}) => {
                 plant.imageUri && 
                 <Image
                 source={{ uri: plant.imageUri }}
-                style={{flex: 1, resizeMode: 'contain', width: 100, height: 100}}
+                style={{flex: 1, resizeMode: 'contain', width: 100, height: 100, borderRadius: 20}}
               />
               }
           </View>
 
-          <Text style={{fontWeight: 'bold', fontSize: 17, marginTop: 10, color: 'black'}}>
+          <Text style={{fontWeight: 'bold', fontSize: 17, marginTop: 10, color: 'grey', alignSelf: 'center'}}>
             {plant.name}
           </Text>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              marginTop: 5,
-            }}>
-            <Text style={{fontSize: 19, fontWeight: 'bold', color: 'black'}}>
+         
+            <Text style={{fontSize: 19, fontWeight: 'bold', color: 'grey', alignSelf:'center'}}>
               ${plant.price}
             </Text>
-          </View>
         </View>
       </TouchableOpacity>
     );

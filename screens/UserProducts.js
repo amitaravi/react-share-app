@@ -1,79 +1,192 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, Image, TouchableOpacity, Alert } from 'react-native';
-import firebase from 'firebase/app';
-import 'firebase/firestore';
+import React, {useState, useEffect} from 'react';
+import {
+  View,
+  SafeAreaView,
+  Text,
+  StyleSheet,
+  FlatList,
+  Image,
+  Dimensions,
+} from 'react-native';
+import {TextInput, TouchableOpacity} from 'react-native-gesture-handler';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import COLORS from '../src/consts/colors';
+import plants from '../src/consts/plants';
+import {auth, db} from '../index';
+import {  arrayRemove, doc, getDocs, collection, updateDoc, query, where, deleteDoc } from "firebase/firestore";
+import { useIsFocused } from '@react-navigation/native';
 
-const UserProducts = ({ navigation }) => {
+const width = Dimensions.get('window').width / 2 - 30;
+
+const UserProducts = ({navigation}) => {
   const [products, setProducts] = useState([]);
+  const isFocused = useIsFocused();
 
   useEffect(() => {
-    const user = firebase.auth().currentUser;
-    if (user) {
-      const productsRef = firebase.firestore().collection('products');
-      const query = productsRef.where('addedBy', '==', user.uid);
-      query.onSnapshot((querySnapshot) => {
-        const data = [];
+    if(isFocused){
+      const fetchData = async() => {
+        let q = collection(db, 'products');
+        
+        q = query(q, where('email', '==', auth.currentUser.email));
+        const querySnapshot = await getDocs(q);
+        const results = [];
         querySnapshot.forEach((doc) => {
-          data.push({ ...doc.data(), id: doc.id });
+          results.push({ id: doc.id, ...doc.data() });
         });
-        setProducts(data);
-      });
+        setProducts(results);
+      }
+      fetchData();
+
     }
-  }, []);
+  }, [isFocused]);
 
-  const handleEditProduct = (product) => {
-    navigation.navigate('EditProductScreen', { product });
-  };
+  const removeProduct = async (product) => {
+    const q = query(collection(db, 'products'), where('name', '==', product.name),
+    where('createdBy', '==', product.createdBy), 
+    where('createdAt','==', product.createdAt));
 
-  const handleDeleteProduct = (product) => {
-    Alert.alert(
-      'Delete Product',
-      `Are you sure you want to delete ${product.name}?`,
-      [
-        {
-          text: 'Cancel',
-          style: 'cancel',
-        },
-        {
-          text: 'Delete',
-          style: 'destructive',
-          onPress: () => {
-            firebase.firestore().collection('products').doc(product.id).delete();
-          },
-        },
-      ],
-      { cancelable: false }
+    const querySnapshot = await getDocs(q);
+    console.log(querySnapshot.size)
+    if (querySnapshot.size === 1) {
+    const productId = querySnapshot.docs[0].id;
+
+  // Get a reference to the document to delete
+    const productRef = doc(db, 'products', productId);
+
+  // Delete the document
+    await deleteDoc(productRef);
+
+  // The product document is now deleted
+    console.log('Product document deleted successfully');
+}   else {
+    console.log('Error: product not found or multiple products with the same name');
+}
+    setProducts(prevProducts => prevProducts.filter((pro) => pro.name !== product.name))
+}
+
+
+  const Card = ({plant}) => {
+
+    return (
+        <View style={style.card}>
+          <View style={{alignItems: 'flex-end'}}>
+            <TouchableOpacity
+              style={{
+                width: 30,
+                height: 30,
+                borderRadius: 20,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+
+              onPress = {() => removeProduct(plant)}
+              >
+              <Icon
+                name="delete"
+                size={18}
+                color="#bca0dc"
+              />
+            </TouchableOpacity>
+          </View>
+
+          <View
+            style={{
+              height: 100,
+              alignItems: 'center',
+            }}>
+              {
+                plant.imageUri && 
+                <Image
+                source={{ uri: plant.imageUri }}
+                style={{flex: 1, resizeMode: 'contain', width: 100, height: 100, borderRadius: 20}}
+              />
+              }
+          </View>
+
+          <Text style={{fontWeight: 'bold', fontSize: 17, marginTop: 10, color: 'grey', alignSelf: 'center'}}>
+            {plant.name}
+          </Text>
+        
+            <Text style={{fontSize: 19, fontWeight: 'bold', color: 'grey', alignSelf: 'center'}}>
+              ${plant.price}
+            </Text>
+    
+        </View>
     );
   };
-
-  const renderProductItem = ({ item }) => (
-    <TouchableOpacity>
-      <View style={{ flexDirection: 'row', padding: 16 }}>
-        <Image source={{ uri: item.imageUri }} style={{ width: 50, height: 50, marginRight: 16 }} />
-        <View style={{ flex: 1 }}>
-          <Text style={{ fontSize: 16 }}>{item.name}</Text>
-          <Text style={{ fontSize: 12, color: 'gray' }}>{item.price}</Text>
-        </View>
-        <TouchableOpacity onPress={() => handleEditProduct(item)}>
-          <Text style={{ color: 'blue', marginRight: 16 }}>Edit</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => handleDeleteProduct(item)}>
-          <Text style={{ color: 'red' }}>Delete</Text>
-        </TouchableOpacity>
-      </View>
-    </TouchableOpacity>
-  );
-
   return (
-    <View style={{ flex: 1 }}>
+    products.length != 0 &&
+    <SafeAreaView
+      style={{flex: 1, paddingHorizontal: 20, backgroundColor: COLORS.white}}>
       <FlatList
+        columnWrapperStyle={{justifyContent: 'space-between'}}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{
+          marginTop: 10,
+          paddingBottom: 50,
+        }}
+        numColumns={2}
         data={products}
-        renderItem={renderProductItem}
-        keyExtractor={(item) => item.id}
-        ListEmptyComponent={() => <Text>No products added yet</Text>}
+        renderItem={({item}) => {
+          return <Card plant={item} />;
+        }}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 
+const style = StyleSheet.create({
+  categoryContainer: {
+    flexDirection: 'row',
+    marginTop: 30,
+    marginBottom: 20,
+    justifyContent: 'space-between',
+  },
+  categoryText: {fontSize: 16, color: 'grey', fontWeight: 'bold'},
+  categoryTextSelected: {
+    color: COLORS.green,
+    paddingBottom: 5,
+    borderBottomWidth: 2,
+    borderColor: COLORS.green,
+  },
+  card: {
+    height: 225,
+    backgroundColor: COLORS.light,
+    width,
+    marginHorizontal: 2,
+    borderRadius: 10,
+    marginBottom: 20,
+    padding: 15,
+  },
+  header: {
+    marginTop: 30,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  searchContainer: {
+    height: 50,
+    backgroundColor: COLORS.light,
+    borderRadius: 10,
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  input: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    flex: 1,
+    color: COLORS.dark,
+  },
+  sortBtn: {
+    marginLeft: 10,
+    height: 50,
+    width: 50,
+    borderRadius: 10,
+    backgroundColor: COLORS.green,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
 export default UserProducts;
+
+

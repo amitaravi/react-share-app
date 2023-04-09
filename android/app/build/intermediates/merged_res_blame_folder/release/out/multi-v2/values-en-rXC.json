@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.ntushare.app-mergeReleaseResources-30:/values-en-rXC/values-en-rXC.xml",
+            "outputFile": "com.ntushare.app-mergeReleaseResources-32:/values-en-rXC/values-en-rXC.xml",
             "map": [
                 {
                     "source": "C:\\Users\\sugan\\.gradle\\caches\\transforms-3\\3c178461f96884367004b56ef82718bc\\transformed\\core-1.7.0\\res\\values-en-rXC\\values-en-rXC.xml",

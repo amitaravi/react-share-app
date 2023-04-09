@@ -1,18 +1,23 @@
 import React, { useState } from 'react';
-import { TouchableOpacity, Text, View ,LayoutAnimation, UIManager, Platform, StatusBar, FlatList, Image, Dimensions } from 'react-native';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { TouchableOpacity, Text, View, Image} from 'react-native';
 import { StyleSheet} from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import 'react-native-gesture-handler';
 import { enableScreens } from 'react-native-screens';
 import Icon from 'react-native-vector-icons/AntDesign';
 import COLORS from '../src/consts/colors';
-import { getFirestore, collection, query, where, getDocs } from 'firebase/firestore'; 
+import Slider from '@react-native-community/slider';
 
 
 enableScreens();
 
 const LandingPage = ({ navigation }) => {
+
+  const [sliderValue, setSliderValue] = useState(0);
+
+  const handleSliderChange = (value) => {
+    setSliderValue(value);
+  }
 
   const[cselected, setcSelected] = useState("");
   const[tselected, settSelected] = useState("");
@@ -117,6 +122,24 @@ const LandingPage = ({ navigation }) => {
         </Picker>
           
         </View>
+        {
+          tselected != 'give' ? 
+          <View>
+               <Text style={styles.dropdownLabel}>Price:</Text>
+          <Slider
+              style={{width: 200, height: 40, alignSelf: 'center'}}
+              minimumValue={5}
+              maximumValue={1000}
+              minimumTrackTintColor="#BCA0DC"
+              maximumTrackTintColor="#000000"
+              onValueChange={handleSliderChange}
+              thumbTintColor='#BCA0DC'
+              step={1}
+          /> 
+          <Text style={{color: 'black', alignSelf: 'center'}}>{sliderValue}</Text>
+          </View>   : <View></View>
+
+        }
         <View style={{alignItems: 'center'}}>
           <TouchableOpacity style={styles.buttonContainer} onPress={()=>{
                 // navigation.navigate('SearchProducts',{
@@ -125,7 +148,8 @@ const LandingPage = ({ navigation }) => {
                 // })
                 navigation.navigate('SwipingTest',{
                        category: cselected,
-                       type: tselected
+                       type: tselected,
+                       price: sliderValue
                 })
           }}>
             <Text style={{fontSize: 20, color: '#fff', fontWeight: '500'}}>Search</Text>

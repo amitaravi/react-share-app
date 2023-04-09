@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useCallback, useLayoutEffect } from 'react';
 import { collection, addDoc, orderBy, query, where, onSnapshot, doc, limit, setDoc } from 'firebase/firestore';
 import { auth, db } from '../index';
-import { Bubble, GiftedChat } from 'react-native-gifted-chat';
+import { Bubble, GiftedChat, Message, Time } from 'react-native-gifted-chat';
 import { useRoute } from '@react-navigation/native';
 import { ActivityIndicator, StyleSheet } from 'react-native';
 
-const Chat = ({ navigation }) => {
+const Chat = ({ navigation, route }) => {
     const [messages, setMessages] = useState([]);
     const [chatId, setChatId] = useState(null);
 
-    const route = useRoute();
+    // const route = useRoute();
     const { sellerId, buyerId } = route.params;
     console.log('sellerId:', sellerId);
     console.log('buyerId:', buyerId);
@@ -114,13 +114,39 @@ const Chat = ({ navigation }) => {
           style:styles.inputText
         }}
         user={{
-            _id: auth.currentUser.email,
-            avatar: 'https://i.pravatar.cc/300',
+            _id: auth.currentUser.email
         }}
+        renderAvatar={null}
         messagesContainerStyle={{
             backgroundColor: '#fff',
             
         }}
+        textStyle={{color: '#BCA0DC'}}
+        alwaysShowSend={true}
+        renderBubble={(props) => (
+          <Bubble
+            {...props}
+            timeTextStyle={{
+              left:{
+                color: 'white'
+              }
+            }}
+            textStyle={{
+              left:{
+                color: 'white'
+              }
+            }}
+            wrapperStyle={{
+              right: {
+                backgroundColor: '#BCA0DC',  // Change background color of right-side messages
+              },
+              left: {
+                backgroundColor: '#BCA0DC', // Change background color of left-side messages
+              },
+            }}
+          />
+        )}
+
         
         />
     );
@@ -135,6 +161,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginRight: 12,
     color: 'black'
+  },
+  bubbleText: {
+    color: 'white'
   }
 })
 

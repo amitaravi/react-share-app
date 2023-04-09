@@ -6,6 +6,7 @@ import COLORS from '../src/consts/colors';
 import { collection, query, where, getDocs , arrayRemove, setDoc, doc, updateDoc, getDoc} from 'firebase/firestore';
 import {db,auth} from '../index';
 import { LogBox } from 'react-native';
+import { color } from 'native-base/lib/typescript/theme/styled-system';
 
 
   const handleAddToFavorites = async (product) => {
@@ -64,7 +65,7 @@ import { LogBox } from 'react-native';
 
 const SwipingCards = ({route, navigation}) => {
 
-    const{category, type} = route.params;
+    const{category, type, price} = route.params;
     const[data,setData] = useState([]);
 
     const Card = ({ card}) => {
@@ -79,13 +80,16 @@ const SwipingCards = ({route, navigation}) => {
 
     useEffect(() => {
         LogBox.ignoreLogs(['Animated: `useNativeDriver`']);
-        const fetchData = async(category, type) => {
+        const fetchData = async(category, type, price) => {
           let q = collection(db, 'products');
           if (category) {
             q = query(q, where('category', '==', category));
           }
           if (type) {
             q = query(q, where('purchaseType', '==', type));
+          }
+          if(price){
+            q = query(q, where('price', '<=', price));
           }
           const querySnapshot = await getDocs(q);
           const results = [];
@@ -94,8 +98,8 @@ const SwipingCards = ({route, navigation}) => {
           });
           setData(results);
         }
-        fetchData(category, type);
-      }, [category, type])
+        fetchData(category, type, price);
+      }, [category, type, price])
 
     const [cardIndex, setCardIndex] = useState(0);
   
@@ -116,7 +120,7 @@ const SwipingCards = ({route, navigation}) => {
     const renderNoMoreCards = () => {
       return (
         <View style={styles.noMoreCards}>
-          <Text>No more cards</Text>
+          <Text>No more Products</Text>
         </View>
       );
     };
@@ -130,6 +134,12 @@ const SwipingCards = ({route, navigation}) => {
         handleNope={handleNope}
         cardIndex={cardIndex}
         loop={false}
+        yupStyle={{position: 'absolute', bottom: 20, right: 20, borderColor: '#BCA0DC'}}
+        nopeStyle={{position: 'absolute', bottom: 20, left: 20, borderColor: '#BCA0DC'}}
+        yupText={"Yah"}
+        nopeText={"Nah"}
+        yupTextStyle={styles.yupText}
+        nopeTextStyle={styles.yupText}
       />
     );
   };
@@ -157,13 +167,16 @@ const SwipingCards = ({route, navigation}) => {
       fontWeight: 'bold',
       textAlign: 'center',
       marginTop: 10,
-      color: 'black'
+      color: 'grey'
     },
     noMoreCards: {
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
     },
+    yupText:{
+      color: '#BCA0DC'
+    }
   });
   
 export default SwipingCards;

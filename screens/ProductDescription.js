@@ -6,6 +6,7 @@ import {auth} from '../index';
 
 const ProductDescription = ({navigation, route}) => {
   const plant = route.params;
+  console.log(plant);
   return (
     <SafeAreaView
       style={{
@@ -69,7 +70,7 @@ const ProductDescription = ({navigation, route}) => {
               justifyContent: 'center',
             }}>
           
-          <TouchableOpacity style={style.buyBtn} onPress={() => navigation.navigate('ChatBot', { sellerId: plant.createdBy, buyerId: auth.currentUser.uid })}>
+          <TouchableOpacity style={style.buyBtn} onPress={() => navigation.navigate('ChatBot', { sellerId: plant.email, buyerId: auth.currentUser.email })}>
                 <Text  style={{color: COLORS.white, fontSize: 18, fontWeight: 'bold'}}>Contact Seller</Text>
               </TouchableOpacity>
     
@@ -88,10 +89,10 @@ const style = StyleSheet.create({
     justifyContent: 'space-between',
   },
   imageContainer: {
-    flex: 0.45,
+    flex: 0.5,
     marginTop: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
+    // justifyContent: 'center',
+    // alignItems: 'center',
   },
   detailsContainer: {
     flex: 0.55,

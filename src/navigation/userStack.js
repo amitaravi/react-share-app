@@ -43,7 +43,7 @@ function HomeStack(){
       }}>
         <Drawer.Screen name="LandingPage" component={LandingPage}  options={{ title: 'Home' }}/>
         <Drawer.Screen name="AddProduct" component={AddProduct} options={{ title: 'Add Products' }} />
-        {/* <Drawer.Screen name="MyProducts" component={UserProducts} options={{ title: 'Edit Products' }} /> */}
+        <Drawer.Screen name="MyProducts" component={UserProducts} options={{ title: 'My Products' }} />
         <Drawer.Screen name="Favorites" component={Favorites} options={{ title: 'Favorites' }} />
         <Drawer.Screen name="Chats" component={ChatScreen} options={{ title: 'My Chats' }} />
       </Drawer.Navigator>
@@ -58,7 +58,7 @@ const UserStack = () => {
             <Stack.Navigator>
                 <Stack.Screen name="HomePage" component={HomeStack} options={{ headerShown: false }}/>
                 <Stack.Screen name="SearchProducts" component={SearchProducts} options={{ title: 'Products' }}/>
-                <Stack.Screen name="SwipingTest" component={SwipingCards} options={{title: 'SwipingTest'}}/>
+                <Stack.Screen name="SwipingTest" component={SwipingCards} options={{title: 'Products'}}/>
                 <Stack.Screen name="ProductDescription" component={ProductDescription} options={{ title: 'Description' }}/>
                 <Stack.Screen name="ChatBot" component={Chat} options={{title: 'Chat'}}/>
             </Stack.Navigator>

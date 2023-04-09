@@ -54,16 +54,6 @@ const AddProduct = ({navigation}) => {
   
       // Get the image URL from Firebase Storage
       const imageUri = await getDownloadURL(storageRef);
-      console.log('Product data:', {
-        name: product.name,
-        price: product.price,
-        description: product.description,
-        category: product.category,
-        purchaseType: product.purchaseType,
-        imageUri: imageUri,
-        createdBy: user.uid,
-        createdAt: serverTimestamp(),
-      });
   
       // Save the product data in Firestore
       const docRef = await addDoc(productsCollectionRef, {
@@ -75,6 +65,7 @@ const AddProduct = ({navigation}) => {
         imageUri: imageUri,
         createdBy: user.uid,
         createdAt: serverTimestamp(),
+        email: user.email,
       });
       console.log(`Product added with ID: ${docRef.id}`);
     } catch (error) {
@@ -88,7 +79,7 @@ const AddProduct = ({navigation}) => {
     
     const product = {
       name: productName,
-      price: productPrice,
+      price: Number(productPrice),
       description:productDescription,
       category: productCategory,
       purchaseType:  productPurchaseType,
@@ -106,7 +97,6 @@ const AddProduct = ({navigation}) => {
   return (
     <SafeAreaView style={{flex: 1}}>
           <ScrollView contentContainerStyle={styles.gradient}>
-    <Text style={styles.heading}>Upload Product</Text>
       <View style={styles.container}>
      
         <Text style={styles.titlee}>Product Name</Text>
@@ -134,7 +124,7 @@ const AddProduct = ({navigation}) => {
 
  <Text style={[styles.title, { marginBottom: 10 }]}>Category</Text>
  <Picker style={{ borderRadius: 10, borderWidth: 1, borderColor: 'black', color:'black'} } selectedValue={productCategory}
-        onValueChange={(itemValue) => setProductCategory(itemValue)}
+        onValueChange={(itemValue) => setProductCategory(itemValue)} dropdownIconColor={'black'}
       >
         <Picker.Item label="Select a Category" value="" />
         <Picker.Item label="Electronics" value="electronics" />
@@ -153,18 +143,19 @@ const AddProduct = ({navigation}) => {
       
       <Picker style={{ borderRadius: 10, color:'black' }}
         selectedValue={productPurchaseType}
-        onValueChange={(itemValue) => setProductPurchaseType(itemValue)}
+        onValueChange={(itemValue) => setProductPurchaseType(itemValue)} dropdownIconColor={'black'}
       >
         <Picker.Item label="Select a Purchase Type" value="" />
         <Picker.Item label="Rent" value="rent" />
         <Picker.Item label="Buy" value="buy" />
+        <Picker.Item label="Give" value="give" />
       </Picker>
      
-       <View style={styles.buttonContainer}>
-         <TouchableOpacity style={styles.button} onPress={handleAddProduct}>
+      
+         <TouchableOpacity style={styles.buttonContainer} onPress={handleAddProduct}>
         <Text style={styles.buttonText}>Add Product</Text>
         </TouchableOpacity>
-        </View>
+    
  </View>
     </ScrollView>
     </SafeAreaView>
@@ -175,7 +166,7 @@ const styles = StyleSheet.create({
     gradient: {
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#bca0dc',
+    // backgroundColor: '#bca0dc',
   },
   container: {
     width: '80%',
@@ -193,25 +184,19 @@ const styles = StyleSheet.create({
   borderColor: 'black',
   borderWidth: 1
   },
-  buttonContainer: {
-    marginTop: 20,
-    flexDirection: 'row',
-    
-    justifyContent: 'center',
-    marginLeft: 70,
-    marginRight: 70,
-    width: '50%'
-  },
+
   titlee:{
     fontSize: 16,  
     fontWeight: 'bold',
-    marginTop: 20
+    marginTop: 20,
+    color: 'black'
     },
   title: {
     fontSize: 16,
     
     fontWeight: 'bold',
     marginTop: 20,
+    color: 'black'
     
   },
  button: {
@@ -230,11 +215,26 @@ const styles = StyleSheet.create({
   marginLeft:30,
   color:'white',
   alignSelf: 'flex-start', // Align to the left
+  color: '#bca0dc'
+},
+buttonContainer: {
+  flexDirection: 'row',
+  justifyContent: 'center',
+  marginLeft: 70,
+  marginRight: 70,
+  backgroundColor: '#BCA0DC',
+  borderRadius: 30,
+  marginTop: 30,
+  width: '60%',
+  alignItems: 'center',
+  justifyContent: 'center',
+  padding: 15,
+  alignSelf:'center'
 },
   buttonText: {
-    color: 'black',
- 
+    color: '#fff',
     fontWeight: 'bold',
+    fontSize: 17
   },
   avatarImage: {
     height: 150,
@@ -244,7 +244,6 @@ const styles = StyleSheet.create({
   addButton: {
     height: 24,
     width: 24,
-    backgroundColor: '#f2f2fC',
     borderRadius: 50,
   },
   addButtonIcon: {

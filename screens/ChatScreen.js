@@ -15,7 +15,7 @@ const ChatScreen = () => {
             const chatsRef = collection(db, "chats");
             const queryRef = query(
             chatsRef,
-            where("participants", "array-contains", user.uid),
+            where("participants", "array-contains", user.email),
             );
 
             onSnapshot(queryRef, (snapshot) => {
@@ -45,9 +45,9 @@ const ChatScreen = () => {
 
     const renderItem = ({ item }) => (
         <TouchableOpacity style={styles.itemContainer} onPress={() => handleChatPress(item.id, item.participants)}>
-        <View style={{borderWidth: 1, padding: 10, borderRadius: 10}}>
-        {/* <Text style={styles.itemText}>{item.participants[0] === auth.currentUser.uid ? item.participants[1] : item.participants[0]}</Text> */}
-        <Text style={styles.itemText}>{item.lastMessage ? item.lastMessage.text : ''}</Text>
+        <View style={{borderWidth: 1, padding: 10, borderRadius: 10, borderColor: '#BCA0DC'}}>
+        <Text style={styles.itemText}>{item.participants[0] === auth.currentUser.uid ? item.participants[1] : item.participants[0]}</Text>
+        <Text style={styles.itemTextMessage}>{item.lastMessage ? item.lastMessage.text : ''}</Text>
 
         </View>
         </TouchableOpacity>
@@ -104,9 +104,16 @@ const styles = StyleSheet.create({
     itemText: {
         fontSize: 16,
         fontWeight: 'bold',
-        color: 'grey', 
+        color: '#BCA0DC', 
        
     },
+    itemTextMessage: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: 'grey', 
+       
+
+    }
 });
 
 export default ChatScreen;
