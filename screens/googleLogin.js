@@ -4,6 +4,7 @@ import { GoogleSignin, GoogleSigninButton, statusCodes, } from '@react-native-go
 import { auth, provider } from '../index';
 import { GoogleAuthProvider, signInWithCredential  } from 'firebase/auth';
 import Icon from 'react-native-vector-icons/Entypo';
+import { requestPushNotificationPermission } from '../Notifications';
 
 
 const GoogleLogin = ({ navigation }) => {
@@ -24,6 +25,9 @@ const GoogleLogin = ({ navigation }) => {
             );
             console.log("okay here 2");
             await signInWithCredential(auth, credential);
+
+            // Call the requestPushNotificationPermission function after a successful login
+            await requestPushNotificationPermission();
         } catch (error) {
           console.log(error);
         }
